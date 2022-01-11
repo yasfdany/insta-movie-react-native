@@ -8,22 +8,25 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import Icon from 'react-native-vector-icons/Feather';
 
 import GlobalStyles from '../../constants/GlobalStyles';
+import Colors from '../../constants/Colors';
 import MovieList from './pages/MovieList'
 import TvList from './pages/TvList'
 
 const HomeScreen = () => {
-  const Tab = createBottomTabNavigator();
+  const Tab = createMaterialBottomTabNavigator();
 
   return (
     <SafeAreaView style={GlobalStyles.container}>
       <StatusBar
         backgroundColor="#ffffff"
         barStyle={'dark-content'} />
-      <Tab.Navigator>
+      <Tab.Navigator
+        activeColor={Colors.primary}
+        barStyle={{ backgroundColor: 'white' }}>
         <Tab.Screen 
           options={{
             headerShown : false,
