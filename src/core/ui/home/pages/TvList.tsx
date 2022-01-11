@@ -8,11 +8,11 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
-import GlobalStyles from '../../../constants/GlobalStyles';
+import GS from '../../../constants/GlobalStyles';
 
 const TvList = () => {
     return (
-        <View style={GlobalStyles.container}>
+        <View style={GS.container}>
             <Text>Tv Screen</Text>
         </View> 
     )

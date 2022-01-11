@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import GlobalStyles from '../constants/GlobalStyles';
-import Colors from '../constants/Colors';
+import GS from '../../constants/GlobalStyles';
+import Colors from '../../constants/Colors';
 import {
   View,
   TouchableNativeFeedback,
@@ -8,6 +8,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import { TouchableRipple } from 'react-native-paper';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 const ItemStory = () => {
     return (
@@ -15,7 +16,7 @@ const ItemStory = () => {
             borderColor: Colors.primary,
             borderWidth: 2,
             marginRight: 6,
-            borderRadius: 46,
+            borderRadius: wp(11),
             padding: 2,
         }}>
             <TouchableRipple
@@ -23,7 +24,7 @@ const ItemStory = () => {
                 onPress={() => {
                         
                 }}
-                style={{ borderRadius: 46 }}
+                style={{ borderRadius: wp(11) }}
                 rippleColor="rgba(0, 0, 0, .32)">
                 <Image 
                     source={{ uri: 'https://www.themoviedb.org/t/p/w600_and_h900_bestv2/h25kBoE6YGMIF09R9FFDFPcvQoH.jpg' }}
@@ -36,10 +37,10 @@ const ItemStory = () => {
 
 const styles = StyleSheet.create({
     storyImage: {
-        width: 46, 
-        height: 46,
+        height: wp(11),
+        width: wp(11),
         resizeMode: 'cover',
-        borderRadius: 23,
+        borderRadius: wp(11),
     },
 });
 

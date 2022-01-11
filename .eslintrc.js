@@ -1,4 +1,9 @@
 module.exports = {
   root: true,
-  extends: '@react-native-community',
+  extends: [
+    'eslint:recommended',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:react/recommended',
+    'airbnb',
+  ],
 };

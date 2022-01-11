@@ -9,9 +9,10 @@ import {
   View,
 } from 'react-native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import Icon from 'react-native-vector-icons/Feather';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
-import GlobalStyles from '../../constants/GlobalStyles';
+import GS from '../../constants/GlobalStyles';
 import Colors from '../../constants/Colors';
 import MovieList from './pages/MovieList'
 import TvList from './pages/TvList'
@@ -20,7 +21,7 @@ const HomeScreen = () => {
   const Tab = createMaterialBottomTabNavigator();
 
   return (
-    <SafeAreaView style={GlobalStyles.container}>
+    <SafeAreaView style={GS.container}>
       <StatusBar
         backgroundColor="#ffffff"
         barStyle={'dark-content'} />
@@ -31,7 +32,7 @@ const HomeScreen = () => {
           options={{
             headerShown : false,
             tabBarIcon: ({ color, size }) => (
-              <Icon name="film" color={color} size={18} />
+              <Icon name="theaters" color={color} size={wp(5.6)} />
             ),
           }} 
           name="Movie" 
@@ -41,7 +42,7 @@ const HomeScreen = () => {
           options={{
             headerShown : false,
             tabBarIcon: ({ color, size }) => (
-              <Icon name="tv" color={color} size={18} />
+              <Icon name="live-tv" color={color} size={wp(5.6)} />
             ),
           }} 
           name="Tv" 

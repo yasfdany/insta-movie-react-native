@@ -6,36 +6,38 @@ import {
   Image,
   StyleSheet,
 } from 'react-native';
-import GlobalStyles from '../../../constants/GlobalStyles';
+import GS from '../../../constants/GlobalStyles';
 import Colors from '../../../constants/Colors';
-import ItemStory from '../../../components/ItemStory';
+import ItemStory from '../../components/ItemStory';
+import ItemMovie from '../../components/ItemMovie';
 
-import Icon from 'react-native-vector-icons/Feather';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import { TouchableRipple } from 'react-native-paper';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 const MovieList = () => {
     return (
-        <View style={[GlobalStyles.flex, GlobalStyles.column]}>
+        <View style={[GS.flex, GS.column]}>
             <View style={[
-                GlobalStyles.row,
-                GlobalStyles.spaceBetween,
+                GS.row,
+                GS.spaceBetween,
             ]}>
                 <TouchableRipple
-                    style={GlobalStyles.p18}
+                    style={GS.p18}
                     onPress={() => {
                         
                     }}
                     rippleColor="rgba(0, 0, 0, .32)">
-                    <Icon name="camera" size={24} />
+                    <Icon name="photo-camera" size={wp(6)} />
                 </TouchableRipple>
                 <TouchableRipple
                     borderless
-                    style={GlobalStyles.p18}
+                    style={GS.p18}
                     onPress={() => {
 
                     }}
                     rippleColor="rgba(0, 0, 0, .32)">
-                    <Icon name="mail" size={24} />
+                    <Icon name="mail" size={wp(6)} />
                 </TouchableRipple>
             </View>
             <FlatList
@@ -45,7 +47,20 @@ const MovieList = () => {
                 style={{flexGrow: 0, marginVertical: 6}}
                 contentContainerStyle={styles.stotyListStyle}
                 renderItem={({ item }) => (
-                    ItemStory()
+                    <ItemStory/>
+                )}
+            />
+            <View style={{
+                backgroundColor: 'rgba(0, 0, 0, .1)',
+                width: '100%',
+                height: 1,
+                marginTop: 6,
+            }}/>
+            <FlatList
+                style={{flex: 1}}
+                data={Array(12)}
+                renderItem={({ item }) => (
+                    <ItemMovie/>
                 )}
             />
         </View> 
