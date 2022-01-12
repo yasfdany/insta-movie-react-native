@@ -3,7 +3,6 @@ import GS from '../../constants/GlobalStyles';
 import Colors from '../../constants/Colors';
 import {
   View,
-  TouchableNativeFeedback,
   Image,
   StyleSheet,
 } from 'react-native';
