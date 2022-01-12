@@ -5,10 +5,10 @@ import {
   StyleSheet,
   View,
   Text,
-  Platform,
   Image,
   ScrollView,
   FlatList,
+  Animated,
 } from 'react-native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import Icon from 'react-native-vector-icons/MaterialIcons';
