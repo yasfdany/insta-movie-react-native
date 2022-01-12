@@ -7,12 +7,12 @@ import {
   TextInput,
   FlatList,
 } from 'react-native';
-import Colors from '../../../constants/Colors';
-import GS from '../../../constants/GlobalStyles';
+import Colors from '../../../../constants/Colors';
+import GS from '../../../../constants/GlobalStyles';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { TouchableRipple } from 'react-native-paper';
-import ItemTv from '../../components/ItemTv';
+import ItemTv from '../../../components/ItemTv';
 
 const TvList = () => {
     const [text, onSearchChange] = useState("")

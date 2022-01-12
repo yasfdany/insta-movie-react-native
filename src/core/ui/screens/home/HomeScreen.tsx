@@ -9,12 +9,12 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
-import GS from '../../constants/GlobalStyles';
-import Colors from '../../constants/Colors';
+import GS from '../../../constants/GlobalStyles';
+import Colors from '../../../constants/Colors';
 import MovieList from './pages/MovieList'
 import TvList from './pages/TvList'
 
-const HomeScreen = () => {
+const HomeScreen = ({ navigation }) => {
   const Tab = createMaterialBottomTabNavigator();
 
   return (
