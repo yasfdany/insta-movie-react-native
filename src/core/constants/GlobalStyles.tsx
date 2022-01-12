@@ -43,7 +43,10 @@ export default StyleSheet.create({
         margin: 18,
     },
     moreLineHeight: {
-        lineHeight: 18
+        lineHeight: 20
+    },
+    bold: {
+        fontWeight: 'bold',
     },
     black12: {
         fontSize: 12,
@@ -51,6 +54,10 @@ export default StyleSheet.create({
     },
     black14: {
         fontSize: 14,
+        color: 'black',
+    },
+    black18: {
+        fontSize: 18,
         color: 'black',
     },
     white12: {
