@@ -12,8 +12,10 @@ import {
 import { TouchableRipple } from 'react-native-paper';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { useNavigation } from '@react-navigation/native';
 
 const ItemMovie = () => {
+    const navigation = useNavigation();
     const [love, setLove] = useState(false)
     const [bookmark, setBookmark] = useState(false)
 
@@ -41,7 +43,7 @@ const ItemMovie = () => {
             <TouchableRipple
                 borderless
                 onPress={() => {
-                        
+                    navigation.navigate('MovieDetailScreen')
                 }}
                 rippleColor="rgba(0, 0, 0, .32)">
                 <Image 

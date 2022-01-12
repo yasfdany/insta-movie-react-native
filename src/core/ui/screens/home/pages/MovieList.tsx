@@ -6,10 +6,10 @@ import {
   Image,
   StyleSheet,
 } from 'react-native';
-import GS from '../../../constants/GlobalStyles';
-import Colors from '../../../constants/Colors';
-import ItemStory from '../../components/ItemStory';
-import ItemMovie from '../../components/ItemMovie';
+import GS from '../../../../constants/GlobalStyles';
+import Colors from '../../../../constants/Colors';
+import ItemStory from '../../../components/ItemStory';
+import ItemMovie from '../../../components/ItemMovie';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { TouchableRipple } from 'react-native-paper';

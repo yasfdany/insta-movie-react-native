@@ -45,14 +45,24 @@ export default StyleSheet.create({
     moreLineHeight: {
         lineHeight: 18
     },
-    black14: {
-        fontSize: wp(3.4),
-        color: 'black',
-        fontFamily: 'Cochin',
-    },
     black12: {
-        fontSize: wp(3),
+        fontSize: 12,
         color: 'black',
-        fontFamily: 'Cochin',
-    }
+    },
+    black14: {
+        fontSize: 14,
+        color: 'black',
+    },
+    white12: {
+        fontSize: 12,
+        color: 'white',
+    },
+    white14: {
+        fontSize: 14,
+        color: 'white',
+    },
+    white18: {
+        fontSize: 18,
+        color: 'white',
+    },
 });
