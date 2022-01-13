@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState} from 'react'
 import {
   SafeAreaView,
   StatusBar,
@@ -9,33 +9,33 @@ import {
   ScrollView,
   FlatList,
   Animated,
-} from 'react-native';
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
-import CollapsibleToolbar from '../../components/CollapsibleToolbar/index.js';
-import { TouchableRipple } from 'react-native-paper';
-import { useNavigation } from '@react-navigation/native';
+} from 'react-native'
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
+import Icon from 'react-native-vector-icons/MaterialIcons'
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen'
+import CollapsibleToolbar from '../../components/CollapsibleToolbar/index.js'
+import { TouchableRipple } from 'react-native-paper'
+import { useNavigation } from '@react-navigation/native'
 
-import GS from '../../../constants/GlobalStyles';
-import Colors from '../../../constants/Colors';
-import ItemChip from '../../components/ItemChip';
-import TitleSection from '../../components/TitleSection';
-import ItemSimilarMovie from '../../components/ItemSimilarMovie';
+import GS from '../../../constants/globalStyles'
+import Colors from '../../../constants/colors'
+import ItemChip from '../../components/ItemChip'
+import TitleSection from '../../components/TitleSection'
+import ItemSimilarMovie from '../../components/ItemSimilarMovie'
 
 const MovieDetailScreen = () => {
-    const navigation = useNavigation();
+    const navigation = useNavigation()
     const [extraHeight, setExtraHeight] = useState(null)
     const categories = ["Action", "Advanture", "Science Fiction"]
     let opacityValue = new Animated.Value(0)
     opacityAnim = opacityValue.interpolate({
         inputRange: [0, 1],
         outputRange: [0, 1]
-    });
+    })
 
     renderContent = () => (
         <ScrollView onLayout={(event) => {
-            const {x, y, height, width} = event.nativeEvent.layout;
+            const {x, y, height, width} = event.nativeEvent.layout
             const minHeight = hp(100) - 56
 
             if(height < minHeight){
@@ -102,7 +102,7 @@ const MovieDetailScreen = () => {
             </FlatList>
             {extraHeight ? <View style={{height: extraHeight}}/> : null}
         </ScrollView>
-    );
+    )
 
     renderNavBar = () => (
         <View
@@ -114,7 +114,7 @@ const MovieDetailScreen = () => {
             <TouchableRipple
                 style={GS.p14}
                 onPress={() => {
-                    navigation.goBack();
+                    navigation.goBack()
                 }}
                 rippleColor="rgba(1, 1, 1, .32)">
                 <Icon name="arrow-back" color="white" size={wp(6)} />
@@ -125,7 +125,7 @@ const MovieDetailScreen = () => {
                 <Text style={GS.white18}>Spider-man : No way home</Text>
             </Animated.View>
         </View>
-    );
+    )
 
     renderBackground = () => (
         <View>
@@ -157,7 +157,7 @@ const MovieDetailScreen = () => {
                 </View>
             </View>
         </View>
-    );
+    )
 
     return (
         <SafeAreaView style={GS.container}>
@@ -191,6 +191,6 @@ const styles = StyleSheet.create({
       marginRight: 14,
       marginTop: 24,
   },
-});
+})
 
 export default MovieDetailScreen

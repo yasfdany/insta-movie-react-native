@@ -1,12 +1,12 @@
-import React, {useState} from 'react';
-import GS from '../../constants/GlobalStyles';
-import Colors from '../../constants/Colors';
+import React, {useState} from 'react'
+import GS from '../../constants/globalStyles'
+import Colors from '../../constants/colors'
 import {
   View,
   StyleSheet,
   Text,
-} from 'react-native';
-import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+} from 'react-native'
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen'
 
 const ItemChip = (props) => {
     return (
@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
         borderRadius: 32,
         marginRight: 12,
     },
-});
+})
 
 
-export default ItemChip;
+export default ItemChip

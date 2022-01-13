@@ -1,17 +1,17 @@
-import React, {useState} from 'react';
-import GS from '../../constants/GlobalStyles';
-import Colors from '../../constants/Colors';
+import React, {useState} from 'react'
+import GS from '../../constants/globalStyles'
+import Colors from '../../constants/colors'
 import {
   View,
   Image,
   StyleSheet,
-} from 'react-native';
-import { TouchableRipple } from 'react-native-paper';
-import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
-import { useNavigation } from '@react-navigation/native';
+} from 'react-native'
+import { TouchableRipple } from 'react-native-paper'
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen'
+import { useNavigation } from '@react-navigation/native'
 
 const ItemStory = () => {
-    const navigation = useNavigation();
+    const navigation = useNavigation()
 
     return (
         <View style={{
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
         resizeMode: 'cover',
         borderRadius: wp(11),
     },
-});
+})
 
 
-export default ItemStory;
+export default ItemStory

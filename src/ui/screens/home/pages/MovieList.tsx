@@ -1,21 +1,27 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react'
 import {
   View,
   TouchableNativeFeedback,
   FlatList,
   Image,
   StyleSheet,
-} from 'react-native';
-import GS from '../../../../constants/GlobalStyles';
-import Colors from '../../../../constants/Colors';
-import ItemStory from '../../../components/ItemStory';
-import ItemMovie from '../../../components/ItemMovie';
+} from 'react-native'
+import GS from '../../../../constants/globalStyles'
+import Colors from '../../../../constants/colors'
+import ItemStory from '../../../components/ItemStory'
+import ItemMovie from '../../../components/ItemMovie'
 
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import { TouchableRipple } from 'react-native-paper';
-import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import Icon from 'react-native-vector-icons/MaterialIcons'
+import { TouchableRipple } from 'react-native-paper'
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen'
+import { useDispatch, useSelector } from "react-redux";
+import { getMovies } from "../../../../redux/actions/movieActions"
 
 const MovieList = () => {
+    const dispatch = useDispatch();
+    const movies = useSelector((state) => state.movie.movies);
+    const page = useSelector((state) => state.movie.page);
+    
     return (
         <View style={[GS.flex, GS.column]}>
             <View style={[
@@ -58,9 +64,14 @@ const MovieList = () => {
             }}/>
             <FlatList
                 style={{flex: 1}}
-                data={Array(12)}
+                data={movies}
+                onEndReachedThreshold={0.5}
+                onEndReached={() => {
+                    console.log(page+1)
+                    dispatch(getMovies(page+1));
+                }}
                 renderItem={({ item }) => (
-                    <ItemMovie/>
+                    <ItemMovie movie={item}/>
                 )}
             />
         </View> 
@@ -71,6 +82,6 @@ const styles = StyleSheet.create({
     stotyListStyle: {
         paddingHorizontal: 14,
     },
-});
+})
 
-export default MovieList;
+export default MovieList

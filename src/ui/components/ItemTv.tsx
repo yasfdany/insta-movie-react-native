@@ -1,12 +1,12 @@
-import React, {useState} from 'react';
-import GS from '../../constants/GlobalStyles';
-import Colors from '../../constants/Colors';
+import React, {useState} from 'react'
+import GS from '../../constants/globalStyles'
+import Colors from '../../constants/colors'
 import {
   Image,
   StyleSheet,
-} from 'react-native';
-import { TouchableRipple } from 'react-native-paper';
-import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+} from 'react-native'
+import { TouchableRipple } from 'react-native-paper'
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen'
 
 const ItemTv = () => {
     return (
@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
       height: wp(100/3) - 1,
       margin: 1,
   },
-});
+})
 
 
-export default ItemTv;
+export default ItemTv

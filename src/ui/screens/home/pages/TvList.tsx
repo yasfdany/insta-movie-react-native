@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect} from 'react'
 import {
   StatusBar,
   StyleSheet,
@@ -6,27 +6,27 @@ import {
   View,
   TextInput,
   FlatList,
-} from 'react-native';
-import Colors from '../../../../constants/Colors';
-import GS from '../../../../constants/GlobalStyles';
-import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import { TouchableRipple } from 'react-native-paper';
-import ItemTv from '../../../components/ItemTv';
+} from 'react-native'
+import Colors from '../../../../constants/colors'
+import GS from '../../../../constants/globalStyles'
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen'
+import Icon from 'react-native-vector-icons/MaterialIcons'
+import { TouchableRipple } from 'react-native-paper'
+import ItemTv from '../../../components/ItemTv'
 
 const TvList = () => {
     const [text, onSearchChange] = useState("")
-    const [data, setData] = useState([]);   
+    const [data, setData] = useState([])   
 
     useEffect(() => {
         let items = Array.apply(null, Array(60)).map((v, i) => {
             return {
                 id: i,
                 src: 'https://www.themoviedb.org/t/p/w600_and_h900_bestv2/h25kBoE6YGMIF09R9FFDFPcvQoH.jpg'
-            };
-        });
-        setData(items);
-    }, []);
+            }
+        })
+        setData(items)
+    }, [])
 
 
     useEffect(() => {
@@ -79,6 +79,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.1)',
     borderRadius: 8,
   },
-});
+})
 
-export default TvList;
+export default TvList

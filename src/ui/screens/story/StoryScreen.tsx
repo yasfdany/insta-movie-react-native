@@ -1,14 +1,14 @@
-import React, {useState} from 'react';
+import React, {useState} from 'react'
 import {
   SafeAreaView,
   StatusBar,
   StyleSheet,
   View,
   Image,
-} from 'react-native';
-import PagerView from 'react-native-pager-view';
+} from 'react-native'
+import PagerView from 'react-native-pager-view'
 
-import GS from '../../../constants/GlobalStyles';
+import GS from '../../../constants/globalStyles'
 
 const StoryScreen = () => {
     return (
@@ -30,4 +30,4 @@ const StoryScreen = () => {
     )
 }
 
-export default StoryScreen;
+export default StoryScreen
