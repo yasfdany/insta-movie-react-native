@@ -1,12 +1,14 @@
-import { createStore, combineReducers } from 'redux'
+import { 
+  createStore, 
+  combineReducers, 
+  applyMiddleware,
+} from 'redux'
+import thunk from 'redux-thunk';
 import { movieReducer } from './reducers/movieReducer'
 
 const rootReducer = combineReducers(
   { movie: movieReducer }
 )
 
-const configureStore = () => {
-  return createStore(rootReducer);
-}
-
-export default configureStore;
+const store = createStore(rootReducer, applyMiddleware(thunk));
+export default store

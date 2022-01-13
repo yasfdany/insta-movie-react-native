@@ -12,8 +12,9 @@ import { TouchableRipple } from 'react-native-paper'
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import { useNavigation } from '@react-navigation/native'
+import {apiConfig} from "../../data/services/apiClient"
 
-const ItemMovie = () => {
+const ItemMovie = (props) => {
     const navigation = useNavigation()
     const [love, setLove] = useState(false)
     const [bookmark, setBookmark] = useState(false)
@@ -22,12 +23,12 @@ const ItemMovie = () => {
         <View style={GS.column}>
             <View style={[GS.row, GS.crossCenter, styles.movieTitleContainer]}>
                 <Image 
-                    source={{ uri: 'https://www.themoviedb.org/t/p/w600_and_h900_bestv2/h25kBoE6YGMIF09R9FFDFPcvQoH.jpg' }}
+                    source={{ uri: `${apiConfig.imageBaseUrl}w342${props.movie.backdrop_path}` }}
                     style={styles.profileImage}
                 />
                 <View style={[GS.column, GS.mainCenter, {marginLeft: 12, flex: 1}]}>
-                    <Text style={GS.black14}>Spider-Man : No way home</Text>
-                    <Text style={[GS.black12,{color: 'gray'}]}>2021-12-9</Text>
+                    <Text style={GS.black14}>{props.movie.title}</Text>
+                    <Text style={[GS.black12,{color: 'gray'}]}>{props.movie.release_date}</Text>
                 </View>
                 <TouchableOpacity
                     onPress={() => {
@@ -46,7 +47,7 @@ const ItemMovie = () => {
                 }}
                 rippleColor="rgba(0, 0, 0, .32)">
                 <Image 
-                    source={{ uri: 'https://www.themoviedb.org/t/p/w600_and_h900_bestv2/h25kBoE6YGMIF09R9FFDFPcvQoH.jpg' }}
+                    source={{ uri: `${apiConfig.imageBaseUrl}w500${props.movie.poster_path}` }}
                     style={styles.movieImage}
                 />
             </TouchableRipple>
@@ -88,7 +89,7 @@ const ItemMovie = () => {
                 </TouchableOpacity>
              </View>
              <Text style={[GS.black14, GS.moreLineHeight, {marginHorizontal: 14, marginBottom: 14}]}>
-                In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before the final copy is
+                {props.movie.overview}
              </Text>
         </View>
     )

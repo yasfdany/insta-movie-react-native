@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {
   SafeAreaView,
   StatusBar,
@@ -8,6 +8,8 @@ import {
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen'
+import { getMovies } from "../../../redux/actions/movieActions"
+import { useDispatch } from "react-redux";
 
 import GS from '../../../constants/globalStyles'
 import Colors from '../../../constants/colors'
@@ -16,6 +18,11 @@ import TvList from './pages/TvList'
 
 const HomeScreen = ({ navigation }) => {
   const Tab = createMaterialBottomTabNavigator()
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getMovies(1));
+  }, [])
 
   return (
     <SafeAreaView style={GS.container}>

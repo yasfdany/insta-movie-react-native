@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {
   View,
   TouchableNativeFeedback,
@@ -14,8 +14,14 @@ import ItemMovie from '../../../components/ItemMovie'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import { TouchableRipple } from 'react-native-paper'
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen'
+import { useDispatch, useSelector } from "react-redux";
+import { getMovies } from "../../../../redux/actions/movieActions"
 
 const MovieList = () => {
+    const dispatch = useDispatch();
+    const movies = useSelector((state) => state.movie.movies);
+    const page = useSelector((state) => state.movie.page);
+    
     return (
         <View style={[GS.flex, GS.column]}>
             <View style={[
@@ -58,9 +64,14 @@ const MovieList = () => {
             }}/>
             <FlatList
                 style={{flex: 1}}
-                data={Array(12)}
+                data={movies}
+                onEndReachedThreshold={0.5}
+                onEndReached={() => {
+                    console.log(page+1)
+                    dispatch(getMovies(page+1));
+                }}
                 renderItem={({ item }) => (
-                    <ItemMovie/>
+                    <ItemMovie movie={item}/>
                 )}
             />
         </View> 
