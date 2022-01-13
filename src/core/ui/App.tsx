@@ -22,6 +22,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import HomeScreen from './screens/home/HomeScreen';
 import MovieDetailScreen from './screens/movie_detail/MovieDetailScreen';
+import StoryScreen from './screens/story/StoryScreen';
 
 const Stack = createNativeStackNavigator();
 const statusbarStyles = ['default', 'dark-content', 'light-content'];
@@ -36,6 +37,7 @@ const App = () => {
       <Stack.Navigator initialRouteName="HomeScreen">
         <Stack.Screen options={noToolbar} name="HomeScreen" component={HomeScreen} />
         <Stack.Screen options={noToolbar} name="MovieDetailScreen" component={MovieDetailScreen} />
+        <Stack.Screen options={noToolbar} name="StoryScreen" component={StoryScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
