@@ -8,8 +8,11 @@ import {
 } from 'react-native';
 import { TouchableRipple } from 'react-native-paper';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import { useNavigation } from '@react-navigation/native';
 
 const ItemStory = () => {
+    const navigation = useNavigation();
+
     return (
         <View style={{
             borderColor: Colors.primary,
@@ -21,7 +24,7 @@ const ItemStory = () => {
             <TouchableRipple
                 borderless
                 onPress={() => {
-                        
+                    navigation.navigate('StoryScreen')
                 }}
                 style={{ borderRadius: wp(11) }}
                 rippleColor="rgba(0, 0, 0, .32)">
