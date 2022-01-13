@@ -25,9 +25,13 @@ import ItemSimilarMovie from '../../components/ItemSimilarMovie';
 
 const MovieDetailScreen = () => {
     const navigation = useNavigation();
-    const [opacity, setOpacity] = useState(0)
     const [extraHeight, setExtraHeight] = useState(null)
     const categories = ["Action", "Advanture", "Science Fiction"]
+    let opacityValue = new Animated.Value(0)
+    opacityAnim = opacityValue.interpolate({
+        inputRange: [0, 1],
+        outputRange: [0, 1]
+    });
 
     renderContent = () => (
         <ScrollView onLayout={(event) => {
@@ -42,7 +46,7 @@ const MovieDetailScreen = () => {
                 showsHorizontalScrollIndicator={false}
                 horizontal={true}
                 data={categories}
-                style={{flexGrow: 0}}
+                style={{flexGrow: 0, marginTop: 12}}
                 contentContainerStyle={{paddingHorizontal: 14,}}
                 renderItem={({ item }) => (
                     <ItemChip title={item} />
@@ -115,7 +119,43 @@ const MovieDetailScreen = () => {
                 rippleColor="rgba(1, 1, 1, .32)">
                 <Icon name="arrow-back" color="white" size={wp(6)} />
             </TouchableRipple>
-            <Text style={[GS.white18, {opacity: opacity}]}>Spider-man : No way home</Text>
+            <Animated.View style={{
+                opacity: opacityAnim,
+            }}>
+                <Text style={GS.white18}>Spider-man : No way home</Text>
+            </Animated.View>
+        </View>
+    );
+
+    renderBackground = () => (
+        <View>
+            <Image
+                source={{ uri: 'https://www.themoviedb.org/t/p/w600_and_h900_bestv2/h25kBoE6YGMIF09R9FFDFPcvQoH.jpg' }}
+                style={{ 
+                    height: hp(50),
+                }}
+            />
+            <View style={[GS.row, GS.p18, GS.spaceBetween , {
+                position: 'absolute',
+                left: 0,
+                right: 0,
+                bottom: 0,
+                backgroundColor: 'white',
+                borderTopLeftRadius: 32,
+                borderTopRightRadius: 32,
+            }]}>
+                <Text style={GS.black18}>Spider-Man : No way home</Text>
+                <View style={[
+                    GS.mainCenter,
+                    {
+                        backgroundColor: Colors.primary,
+                        paddingHorizontal: 8,
+                        borderRadius: 24,
+                    }]
+                }>
+                    <Text style={GS.white14}>8.6</Text>
+                </View>
+            </View>
         </View>
     );
 
@@ -129,33 +169,13 @@ const MovieDetailScreen = () => {
                 <CollapsibleToolbar
                     renderContent={this.renderContent}
                     renderNavBar={this.renderNavBar}
-                    renderBackground={() => (
-                        <View>
-                            <Image
-                                source={{ uri: 'https://www.themoviedb.org/t/p/w600_and_h900_bestv2/h25kBoE6YGMIF09R9FFDFPcvQoH.jpg' }}
-                                style={{ 
-                                    height: hp(50),
-                                }}
-                            />
-                            <View style={[GS.row, GS.p18 , {
-                                position: 'absolute',
-                                left: 0,
-                                right: 0,
-                                bottom: 0,
-                                backgroundColor: 'white',
-                                borderTopLeftRadius: 32,
-                                borderTopRightRadius: 32,
-                            }]}>
-                                <Text style={GS.black18}>Spider-Man : No way home</Text>
-                            </View>
-                        </View>
-                    )}
+                    renderBackground={this.renderBackground}
                     collapsedNavBarBackgroundColor={Colors.primary}
                     translucentStatusBar
                     showsVerticalScrollIndicator={false}
                     toolBarHeight={hp(50)}
                     onContentScroll = {(offset, max) => {
-                        setOpacity(offset/max)
+                        opacityValue.setValue(offset/max)
                     }}
                 />
             </View>
