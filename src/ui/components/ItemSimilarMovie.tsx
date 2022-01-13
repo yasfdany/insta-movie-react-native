@@ -1,13 +1,13 @@
-import React, {useState} from 'react';
-import GS from '../../constants/GlobalStyles';
-import Colors from '../../constants/Colors';
+import React, {useState} from 'react'
+import GS from '../../constants/globalStyles'
+import Colors from '../../constants/colors'
 import {
   View,
   StyleSheet,
   Text,
   Image,
-} from 'react-native';
-import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+} from 'react-native'
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen'
 
 const ItemSimilarMovie = (props) => {
     return (
@@ -41,6 +41,6 @@ const styles = StyleSheet.create({
   posterShadow: {
       elevation: 5,
   }
-});
+})
 
-export default ItemSimilarMovie;
+export default ItemSimilarMovie

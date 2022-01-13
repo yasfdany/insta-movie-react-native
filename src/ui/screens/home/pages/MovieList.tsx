@@ -1,19 +1,19 @@
-import React, {useState} from 'react';
+import React, {useState} from 'react'
 import {
   View,
   TouchableNativeFeedback,
   FlatList,
   Image,
   StyleSheet,
-} from 'react-native';
-import GS from '../../../../constants/GlobalStyles';
-import Colors from '../../../../constants/Colors';
-import ItemStory from '../../../components/ItemStory';
-import ItemMovie from '../../../components/ItemMovie';
+} from 'react-native'
+import GS from '../../../../constants/globalStyles'
+import Colors from '../../../../constants/colors'
+import ItemStory from '../../../components/ItemStory'
+import ItemMovie from '../../../components/ItemMovie'
 
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import { TouchableRipple } from 'react-native-paper';
-import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import Icon from 'react-native-vector-icons/MaterialIcons'
+import { TouchableRipple } from 'react-native-paper'
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen'
 
 const MovieList = () => {
     return (
@@ -71,6 +71,6 @@ const styles = StyleSheet.create({
     stotyListStyle: {
         paddingHorizontal: 14,
     },
-});
+})
 
-export default MovieList;
+export default MovieList
