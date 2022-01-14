@@ -21,6 +21,7 @@ import { ActionTypes } from '../../../../redux/constants/actionTypes';
 const MovieList = () => {
     const dispatch = useDispatch()
     const movies = useSelector((state) => state.movie.movies)
+    const stories = useSelector((state) => state.tv.stories)
     const page = useSelector((state) => state.movie.page)
     const maxPage = useSelector((state) => state.movie.maxPage)
     const loading = useSelector((state) => state.movie.loading)
@@ -60,11 +61,11 @@ const MovieList = () => {
             <FlatList
                 showsHorizontalScrollIndicator={false}
                 horizontal={true}
-                data={Array(12)}
+                data={stories}
                 style={{flexGrow: 0, marginVertical: 6}}
                 contentContainerStyle={styles.stotyListStyle}
-                renderItem={({ item }) => (
-                    <ItemStory/>
+                renderItem={({ item, index }) => (
+                    <ItemStory story={item} index={index}/>
                 )}
             />
             <View style={{

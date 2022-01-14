@@ -21,3 +21,11 @@ export const getTv = (page, search = "", reset = false) => async (dispatch) => {
         },
     })
 }
+
+export const getStory = () => async (dispatch) => {
+    const response = await apiClient.get(`discover/tv?api_key=${apiConfig.apiKey}&language=id&page=1`)
+    dispatch({
+        type: ActionTypes.GET_STORY,
+        payload: response,
+    })
+}

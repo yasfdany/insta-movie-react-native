@@ -10,7 +10,9 @@ import { TouchableRipple } from 'react-native-paper'
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen'
 import { useNavigation } from '@react-navigation/native'
 
-const ItemStory = () => {
+import {apiConfig} from "../../data/services/apiClient"
+
+const ItemStory = (props) => {
     const navigation = useNavigation()
 
     return (
@@ -24,12 +26,12 @@ const ItemStory = () => {
             <TouchableRipple
                 borderless
                 onPress={() => {
-                    navigation.navigate('StoryScreen')
+                    navigation.navigate('StoryScreen',{index: props.index})
                 }}
                 style={{ borderRadius: wp(11) }}
                 rippleColor="rgba(0, 0, 0, .32)">
                 <Image 
-                    source={{ uri: 'https://www.themoviedb.org/t/p/w600_and_h900_bestv2/h25kBoE6YGMIF09R9FFDFPcvQoH.jpg' }}
+                    source={{ uri: `${apiConfig.imageBaseUrl}w500${props.story.poster_path}` }}
                     style={styles.storyImage}
                 />
             </TouchableRipple>

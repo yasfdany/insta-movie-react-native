@@ -9,7 +9,7 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen'
 import { getMovies } from "../../../redux/actions/movieActions"
-import { getTv } from '../../../redux/actions/tvActions'
+import { getTv, getStory } from '../../../redux/actions/tvActions'
 import { useDispatch } from "react-redux"
 
 import GS from '../../../constants/globalStyles'
@@ -22,6 +22,7 @@ const HomeScreen = ({ navigation }) => {
   const dispatch = useDispatch()
 
   useEffect(() => {
+    dispatch(getStory())
     dispatch(getMovies(1, true))
     dispatch(getTv(1, "", true))
   }, [])
