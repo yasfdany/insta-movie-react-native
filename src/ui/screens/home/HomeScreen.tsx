@@ -21,7 +21,7 @@ const HomeScreen = ({ navigation }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getMovies(1));
+    dispatch(getMovies(1, true));
   }, [])
 
   return (

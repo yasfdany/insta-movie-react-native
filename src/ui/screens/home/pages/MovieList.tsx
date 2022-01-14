@@ -21,6 +21,14 @@ const MovieList = () => {
     const dispatch = useDispatch();
     const movies = useSelector((state) => state.movie.movies);
     const page = useSelector((state) => state.movie.page);
+    const loading = useSelector((state) => state.movie.loading);
+    const [refreshing, setRefreshing] = useState(false)
+    
+    useEffect(() => {
+        if(!loading){
+            setRefreshing(false)
+        }
+    }, [loading,movies])
     
     return (
         <View style={[GS.flex, GS.column]}>
@@ -63,11 +71,14 @@ const MovieList = () => {
                 marginTop: 6,
             }}/>
             <FlatList
+                refreshing={refreshing}
+                onRefresh={() => {
+                    dispatch(getMovies(1, true));
+                }}
                 style={{flex: 1}}
                 data={movies}
                 onEndReachedThreshold={0.5}
                 onEndReached={() => {
-                    console.log(page+1)
                     dispatch(getMovies(page+1));
                 }}
                 renderItem={({ item }) => (
