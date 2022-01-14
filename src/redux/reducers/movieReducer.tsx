@@ -5,7 +5,7 @@ const initialState = {
     page: 1,
     maxPage: -1,
     loading: false,
-    loadingDetail: false,
+    loadingDetail: true,
 }
 
 export const movieReducer = (state = initialState, {type, payload}) => {
@@ -19,13 +19,20 @@ export const movieReducer = (state = initialState, {type, payload}) => {
                 loading: false,
             }
         case ActionTypes.GET_DETAIL_MOVIE:
-            const data = {
+            const detailMovie = {
                 ...state, 
                 loadingDetail: false,
             }
-            data[`detail${payload.data.id}`] = payload.data
+            detailMovie[`detail${payload.data.id}`] = payload.data
 
-            return data
+            return detailMovie
+        case ActionTypes.GET_SIMILAR_MOVIES:
+            const similarMovie = {
+                ...state
+            }
+            similarMovie[`similar${payload.id}`] = payload.response.data.results
+
+            return similarMovie
         case ActionTypes.SET_MOVIE_LOADING:
             return {
                 ...state,

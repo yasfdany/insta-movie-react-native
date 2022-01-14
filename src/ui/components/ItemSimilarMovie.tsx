@@ -8,16 +8,27 @@ import {
   Image,
 } from 'react-native'
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen'
+import { TouchableRipple } from 'react-native-paper'
+import { useNavigation } from '@react-navigation/native'
+import {apiConfig} from "../../data/services/apiClient"
 
 const ItemSimilarMovie = (props) => {
+    const navigation = useNavigation()
+
     return (
         <View style={[GS.column, props.style]}>
-            <View style={styles.posterShadow}>
+            <TouchableRipple
+                borderless
+                style={styles.poserImage}
+                onPress={() => {
+                    navigation.push('MovieDetailScreen',{movie: props.movie})
+                }}
+                rippleColor="rgba(0, 0, 0, .32)">
                 <Image 
                     style={styles.poserImage} 
-                    source={{ uri: 'https://www.themoviedb.org/t/p/w600_and_h900_bestv2/h25kBoE6YGMIF09R9FFDFPcvQoH.jpg' }}
+                    source={{ uri: `${apiConfig.imageBaseUrl}w500${props.movie.poster_path}` }}
                 />
-            </View>
+            </TouchableRipple>
             <Text style={[
                 GS.black14, 
                 {
@@ -26,7 +37,7 @@ const ItemSimilarMovie = (props) => {
                     marginBottom: 12,
                 }
             ]}>
-                Spirder-Man : No way home
+                {props.movie.title}
             </Text>
         </View>
     )
@@ -37,10 +48,8 @@ const styles = StyleSheet.create({
       width: wp(30),
       height: hp(20),
       borderRadius: 14,
+      backgroundColor: 'rgba(0,0,0,0.08)',
   },
-  posterShadow: {
-      elevation: 5,
-  }
 })
 
 export default ItemSimilarMovie

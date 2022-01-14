@@ -29,3 +29,14 @@ export const getDetailMovies = (id) => async (dispatch) => {
         payload: response,
     })
 }
+
+export const getSimilarMovies = (id) => async (dispatch) => {
+    const response = await apiClient.get(`movie/${id}/similar?api_key=${apiConfig.apiKey}&language=id`) 
+    dispatch({
+        type: ActionTypes.GET_SIMILAR_MOVIES,
+        payload: {
+            id: id,
+            response: response,
+        },
+    })
+}

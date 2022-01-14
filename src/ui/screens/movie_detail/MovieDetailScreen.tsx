@@ -25,15 +25,17 @@ import TitleSection from '../../components/TitleSection'
 import ItemSimilarMovie from '../../components/ItemSimilarMovie'
 import {apiConfig} from "../../../data/services/apiClient"
 
-import { getDetailMovies } from "../../../redux/actions/movieActions"
+import { getDetailMovies, getSimilarMovies } from "../../../redux/actions/movieActions"
 
 const MovieDetailScreen = (props) => {
     const dispatch = useDispatch();
     const navigation = useNavigation()
     const [extraHeight, setExtraHeight] = useState(null)
     const movie = props.route.params.movie
+    const loading = useSelector((state) => state.movie.loadingDetail);
     const movieDetail = useSelector((state) => state.movie[`detail${movie.id}`]);
-    
+    const similarMovies = useSelector((state) => state.movie[`similar${movie.id}`]);
+
     let opacityValue = new Animated.Value(0)
     opacityAnim = opacityValue.interpolate({
         inputRange: [0, 1],
@@ -43,21 +45,23 @@ const MovieDetailScreen = (props) => {
         inputRange: [0, 1],
         outputRange: [0, 100]
     })
+    scaleAnim = opacityValue.interpolate({
+        inputRange: [0, 1],
+        outputRange: [1, 1.2]
+    })
 
     useEffect(() => {
+        dispatch(getSimilarMovies(movie.id));
         dispatch(getDetailMovies(movie.id));
     }, [])
-
-    useEffect(() => {
-    }, [movieDetail])
 
     renderContent = () => (
         <ScrollView style={{backgroundColor: 'white'}} onLayout={(event) => {
             const {x, y, height, width} = event.nativeEvent.layout
-            const minHeight = hp(100) - 56
+            const minHeight = hp(90)
 
             if(height < minHeight){
-                setExtraHeight(current => current+(minHeight-height))
+                setExtraHeight(minHeight - height)
             }
         }}>
             <FlatList
@@ -111,11 +115,11 @@ const MovieDetailScreen = (props) => {
             <FlatList
                 showsHorizontalScrollIndicator={false}
                 horizontal={true}
-                data={Array(12)}
+                data={similarMovies}
                 style={{flexGrow: 0, marginTop: 14}}
                 contentContainerStyle={{paddingHorizontal: 14,}}
                 renderItem={({ item }) => (
-                    <ItemSimilarMovie style={{marginRight: 12}}/>
+                    <ItemSimilarMovie movie={item} style={{marginRight: 12}}/>
                 )}>
             </FlatList>
             {extraHeight ? <View style={{height: extraHeight}}/> : null}
@@ -153,6 +157,7 @@ const MovieDetailScreen = (props) => {
                     height: hp(50),
                     transform: [
                         {translateY: parralaxAnim},
+                        {scale: scaleAnim},
                     ],
                 }}
             />
