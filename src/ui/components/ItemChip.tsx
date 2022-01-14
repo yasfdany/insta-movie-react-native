@@ -11,7 +11,7 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-nativ
 const ItemChip = (props) => {
     return (
         <View style={styles.chipContainer}>
-            <Text style={[GS.black14, {color: Colors.primary}]}>{props.title}</Text>
+            <Text style={[GS.black14, {color: Colors.primary}]}>{props.genre.name}</Text>
         </View>
     )
 }

@@ -31,7 +31,6 @@ const MovieDetailScreen = (props) => {
     const dispatch = useDispatch();
     const navigation = useNavigation()
     const [extraHeight, setExtraHeight] = useState(null)
-    const categories = ["Action", "Advanture", "Science Fiction"]
     const movie = props.route.params.movie
     const movieDetail = useSelector((state) => state.movie[`detail${movie.id}`]);
     
@@ -64,20 +63,20 @@ const MovieDetailScreen = (props) => {
             <FlatList
                 showsHorizontalScrollIndicator={false}
                 horizontal={true}
-                data={categories}
+                data={movieDetail?.genres ?? []}
                 style={{flexGrow: 0, marginTop: 12}}
                 contentContainerStyle={{paddingHorizontal: 14,}}
                 renderItem={({ item }) => (
-                    <ItemChip title={item} />
+                    <ItemChip genre={item} />
                 )}>
             </FlatList>
             <View style={[GS.row, GS.spaceBetween]}>
                 <View style={[GS.column, GS.spaceBetween, {paddingHorizontal: 14, marginTop: 12}]}>
-                    <TitleSection style={{marginTop: 12}} title="Status" value="Released"/>
-                    <TitleSection style={{marginTop: 12}} title="Runtime" value="148"/>
-                    <TitleSection style={{marginTop: 12}} title="Release" value="2021-12-01"/>
-                    <TitleSection style={{marginTop: 12}} title="Budget" value="Rp. 24.000.000"/>
-                    <TitleSection style={{marginTop: 12}} title="Revenue" value="Rp. 12.000.000"/>
+                    <TitleSection style={{marginTop: 12}} title="Status" value={movieDetail?.status ?? ""}/>
+                    <TitleSection style={{marginTop: 12}} title="Runtime" value={movieDetail?.runtime ?? ""}/>
+                    <TitleSection style={{marginTop: 12}} title="Release" value={movieDetail?.release_date ?? ""}/>
+                    <TitleSection style={{marginTop: 12}} title="Budget" value={`Rp. ${movieDetail?.budget ?? ""}`}/>
+                    <TitleSection style={{marginTop: 12}} title="Revenue" value={`Rp. ${movieDetail?.revenue ?? ""}`}/>
                 </View>
                 <Image 
                     style={styles.poserImage} 
@@ -93,10 +92,10 @@ const MovieDetailScreen = (props) => {
                         marginTop: 24,
                     }
                 ]}>
-                Overflow
+                Overview
             </Text>
             <Text style={[GS.black14, GS.moreLineHeight, {marginHorizontal: 14}]}>
-                In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before the final copy is
+                {movieDetail?.overview}
             </Text>
             <Text 
                 style={[
@@ -141,7 +140,7 @@ const MovieDetailScreen = (props) => {
             <Animated.View style={{
                 opacity: opacityAnim,
             }}>
-                <Text style={GS.white18}>Spider-man : No way home</Text>
+                <Text style={GS.white18}>{movie.title}</Text>
             </Animated.View>
         </View>
     )
@@ -166,7 +165,7 @@ const MovieDetailScreen = (props) => {
                 borderTopLeftRadius: 32,
                 borderTopRightRadius: 32,
             }]}>
-                <Text style={GS.black18}>Spider-Man : No way home</Text>
+                <Text style={GS.black18}>{movie.title}</Text>
                 <View style={[
                     GS.mainCenter,
                     {
@@ -175,7 +174,7 @@ const MovieDetailScreen = (props) => {
                         borderRadius: 24,
                     }]
                 }>
-                    <Text style={GS.white14}>8.6</Text>
+                    <Text style={GS.white14}>{movie.vote_average}</Text>
                 </View>
             </View>
         </View>
