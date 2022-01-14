@@ -7,8 +7,9 @@ import {
 } from 'react-native'
 import { TouchableRipple } from 'react-native-paper'
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen'
+import {apiConfig} from "../../data/services/apiClient"
 
-const ItemTv = () => {
+const ItemTv = (props) => {
     return (
         <TouchableRipple
                 borderless
@@ -17,7 +18,7 @@ const ItemTv = () => {
                 }}
                 rippleColor="rgba(0, 0, 0, .32)">
             <Image 
-                source={{ uri: 'https://www.themoviedb.org/t/p/w600_and_h900_bestv2/h25kBoE6YGMIF09R9FFDFPcvQoH.jpg' }}
+                source={{ uri: `${apiConfig.imageBaseUrl}w342${props.tv.poster_path}` }}
                 style={styles.tvImage}
             />
         </TouchableRipple>
@@ -29,6 +30,7 @@ const styles = StyleSheet.create({
       width: wp(100/3) - 1,
       height: wp(100/3) - 1,
       margin: 1,
+      backgroundColor: 'rgba(0,0,0,0.08)',
   },
 })
 

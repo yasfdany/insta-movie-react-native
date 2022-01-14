@@ -9,7 +9,8 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen'
 import { getMovies } from "../../../redux/actions/movieActions"
-import { useDispatch } from "react-redux";
+import { getTv } from '../../../redux/actions/tvActions'
+import { useDispatch } from "react-redux"
 
 import GS from '../../../constants/globalStyles'
 import Colors from '../../../constants/colors'
@@ -18,10 +19,11 @@ import TvList from './pages/TvList'
 
 const HomeScreen = ({ navigation }) => {
   const Tab = createMaterialBottomTabNavigator()
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(getMovies(1, true));
+    dispatch(getMovies(1, true))
+    dispatch(getTv(1, "", true))
   }, [])
 
   return (

@@ -4,7 +4,7 @@ import {ActionTypes} from "../constants/actionTypes"
 export const getMovies = (page, reset = false) => async (dispatch) => {
     if(reset){
         dispatch({
-            type: ActionTypes.SET_LOADING,
+            type: ActionTypes.SET_MOVIE_LOADING,
             payload: {loading: true},
         })
     }

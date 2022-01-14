@@ -102,12 +102,14 @@ const styles = StyleSheet.create({
     movieImage: {
         height: hp(52),
         resizeMode: 'cover',
+        backgroundColor: 'rgba(0,0,0,0.08)',
     },
     profileImage: {
         height: wp(9),
         width: wp(9),
         resizeMode: 'cover',
         borderRadius: wp(9),
+        backgroundColor: 'rgba(0,0,0,0.08)',
     },
 })
 

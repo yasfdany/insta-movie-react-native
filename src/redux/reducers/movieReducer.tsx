@@ -4,7 +4,6 @@ const initialState = {
     movies: [],
     page: 1,
     maxPage: -1,
-    scrollPosition: 0,
     loading: false,
     loadingDetail: false,
 }
@@ -27,7 +26,7 @@ export const movieReducer = (state = initialState, {type, payload}) => {
             data[`detail${payload.data.id}`] = payload.data
 
             return data
-        case ActionTypes.SET_LOADING:
+        case ActionTypes.SET_MOVIE_LOADING:
             return {
                 ...state,
                 loading: payload.loading,
@@ -36,7 +35,7 @@ export const movieReducer = (state = initialState, {type, payload}) => {
             return {
                 ...state,
                 loadingDetail: payload.loadingDetail,
-            }        
+            }    
         default:
             return state
     }
