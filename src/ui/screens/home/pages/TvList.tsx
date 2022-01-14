@@ -7,29 +7,37 @@ import {
   TextInput,
   FlatList,
 } from 'react-native'
+import {ProgressBar} from '@react-native-community/progress-bar-android';
+
 import Colors from '../../../../constants/colors'
 import GS from '../../../../constants/globalStyles'
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import { TouchableRipple } from 'react-native-paper'
 import ItemTv from '../../../components/ItemTv'
+import { useDispatch, useSelector } from "react-redux"
+import { getTv } from '../../../../redux/actions/tvActions'
+import { ActionTypes } from '../../../../redux/constants/actionTypes';
 
 const TvList = () => {
+    const dispatch = useDispatch()
     const [text, onSearchChange] = useState("")
-    const [data, setData] = useState([])   
+    const tvs = useSelector((state) => state.tv.tvs)
+    const page = useSelector((state) => state.tv.page)
+    const maxPage = useSelector((state) => state.tv.maxPage)
+    const loading = useSelector((state) => state.tv.loading)
+    const [refreshing, setRefreshing] = useState(false)
 
     useEffect(() => {
-        let items = Array.apply(null, Array(60)).map((v, i) => {
-            return {
-                id: i,
-                src: 'https://www.themoviedb.org/t/p/w600_and_h900_bestv2/h25kBoE6YGMIF09R9FFDFPcvQoH.jpg'
-            }
+        dispatch({
+            type: ActionTypes.SET_TV_LOADING,
+            payload: {loading: true},
         })
-        setData(items)
-    }, [])
+        const delayDebounceFn = setTimeout(() => {
+            dispatch(getTv(1, text, true))
+        }, 500)
 
-
-    useEffect(() => {
+        return () => clearTimeout(delayDebounceFn)
     }, [text])
 
     return (
@@ -60,15 +68,30 @@ const TvList = () => {
                 height: 1,
                 marginTop: 6,
             }}/>
-            <FlatList 
-                style={{flex: 1}}
-                data={data}
-                renderItem={({ item }) => (
-                    <ItemTv/>
-                )}
-                numColumns={3}
-                keyExtractor={(item, index) => index.toString()}
-            />
+            {loading ? 
+                <View style={[GS.flex, GS.mainCenter, GS.crossCenter]}>
+                    <ProgressBar style={{color: Colors.primary}}></ProgressBar>
+                </View>
+             : 
+                <FlatList 
+                    refreshing={refreshing}
+                    onRefresh={() => {
+                        dispatch(getTv(1, text, true))
+                    }}
+                    onEndReachedThreshold={0.5}
+                    onEndReached={() => {
+                        if(page + 1 <= maxPage){
+                            dispatch(getTv(page+1, text))
+                        }
+                    }}
+                    style={{flex: 1}}
+                    data={tvs}
+                    renderItem={({ item }) => (
+                        <ItemTv tv={item}/>
+                    )}
+                    numColumns={3}
+                    keyExtractor={(item, index) => index.toString()}/>
+            }
         </View> 
     )
 }

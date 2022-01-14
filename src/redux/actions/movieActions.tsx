@@ -4,7 +4,7 @@ import {ActionTypes} from "../constants/actionTypes"
 export const getMovies = (page, reset = false) => async (dispatch) => {
     if(reset){
         dispatch({
-            type: ActionTypes.SET_LOADING,
+            type: ActionTypes.SET_MOVIE_LOADING,
             payload: {loading: true},
         })
     }
@@ -14,6 +14,29 @@ export const getMovies = (page, reset = false) => async (dispatch) => {
         payload: {
             response: response,
             reset: reset,
+        },
+    })
+}
+
+export const getDetailMovies = (id) => async (dispatch) => {
+    dispatch({
+        type: ActionTypes.SET_DETAIL_LOADING,
+        payload: {loadingDetail: true},
+    })
+    const response = await apiClient.get(`movie/${id}?api_key=${apiConfig.apiKey}&language=id`)
+    dispatch({
+        type: ActionTypes.GET_DETAIL_MOVIE,
+        payload: response,
+    })
+}
+
+export const getSimilarMovies = (id) => async (dispatch) => {
+    const response = await apiClient.get(`movie/${id}/similar?api_key=${apiConfig.apiKey}&language=id`) 
+    dispatch({
+        type: ActionTypes.GET_SIMILAR_MOVIES,
+        payload: {
+            id: id,
+            response: response,
         },
     })
 }
