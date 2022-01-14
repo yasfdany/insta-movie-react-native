@@ -6,6 +6,7 @@ const initialState = {
     maxPage: -1,
     scrollPosition: 0,
     loading: false,
+    loadingDetail: false,
 }
 
 export const movieReducer = (state = initialState, {type, payload}) => {
@@ -18,10 +19,23 @@ export const movieReducer = (state = initialState, {type, payload}) => {
                 maxPage: payload.response.data.total_pages,
                 loading: false,
             }
+        case ActionTypes.GET_DETAIL_MOVIE:
+            const data = {
+                ...state, 
+                loadingDetail: false,
+            }
+            data[`detail${payload.data.id}`] = payload.data
+
+            return data
         case ActionTypes.SET_LOADING:
             return {
                 ...state,
                 loading: payload.loading,
+            }
+        case ActionTypes.SET_DETAIL_LOADING:
+            return {
+                ...state,
+                loadingDetail: payload.loadingDetail,
             }        
         default:
             return state

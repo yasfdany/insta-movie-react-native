@@ -43,7 +43,7 @@ const ItemMovie = (props) => {
             <TouchableRipple
                 borderless
                 onPress={() => {
-                    navigation.navigate('MovieDetailScreen')
+                    navigation.navigate('MovieDetailScreen',{movie: props.movie})
                 }}
                 rippleColor="rgba(0, 0, 0, .32)">
                 <Image 

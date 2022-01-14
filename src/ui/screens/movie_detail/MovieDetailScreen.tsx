@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {
   SafeAreaView,
   StatusBar,
@@ -16,25 +16,44 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-nativ
 import CollapsibleToolbar from '../../components/CollapsibleToolbar/index.js'
 import { TouchableRipple } from 'react-native-paper'
 import { useNavigation } from '@react-navigation/native'
+import { useDispatch,useSelector } from "react-redux";
 
 import GS from '../../../constants/globalStyles'
 import Colors from '../../../constants/colors'
 import ItemChip from '../../components/ItemChip'
 import TitleSection from '../../components/TitleSection'
 import ItemSimilarMovie from '../../components/ItemSimilarMovie'
+import {apiConfig} from "../../../data/services/apiClient"
 
-const MovieDetailScreen = () => {
+import { getDetailMovies } from "../../../redux/actions/movieActions"
+
+const MovieDetailScreen = (props) => {
+    const dispatch = useDispatch();
     const navigation = useNavigation()
     const [extraHeight, setExtraHeight] = useState(null)
     const categories = ["Action", "Advanture", "Science Fiction"]
+    const movie = props.route.params.movie
+    const movieDetail = useSelector((state) => state.movie[`detail${movie.id}`]);
+    
     let opacityValue = new Animated.Value(0)
     opacityAnim = opacityValue.interpolate({
         inputRange: [0, 1],
         outputRange: [0, 1]
     })
+    parralaxAnim = opacityValue.interpolate({
+        inputRange: [0, 1],
+        outputRange: [0, 100]
+    })
+
+    useEffect(() => {
+        dispatch(getDetailMovies(movie.id));
+    }, [])
+
+    useEffect(() => {
+    }, [movieDetail])
 
     renderContent = () => (
-        <ScrollView onLayout={(event) => {
+        <ScrollView style={{backgroundColor: 'white'}} onLayout={(event) => {
             const {x, y, height, width} = event.nativeEvent.layout
             const minHeight = hp(100) - 56
 
@@ -62,7 +81,7 @@ const MovieDetailScreen = () => {
                 </View>
                 <Image 
                     style={styles.poserImage} 
-                    source={{ uri: 'https://www.themoviedb.org/t/p/w600_and_h900_bestv2/h25kBoE6YGMIF09R9FFDFPcvQoH.jpg' }}
+                    source={{ uri: `${apiConfig.imageBaseUrl}w342${movie.poster_path}` }}
                 />
             </View>
             <Text 
@@ -129,10 +148,13 @@ const MovieDetailScreen = () => {
 
     renderBackground = () => (
         <View>
-            <Image
-                source={{ uri: 'https://www.themoviedb.org/t/p/w600_and_h900_bestv2/h25kBoE6YGMIF09R9FFDFPcvQoH.jpg' }}
+            <Animated.Image
+                source={{ uri: `${apiConfig.imageBaseUrl}w780${movie.backdrop_path}` }}
                 style={{ 
                     height: hp(50),
+                    transform: [
+                        {translateY: parralaxAnim},
+                    ],
                 }}
             />
             <View style={[GS.row, GS.p18, GS.spaceBetween , {

@@ -17,3 +17,15 @@ export const getMovies = (page, reset = false) => async (dispatch) => {
         },
     })
 }
+
+export const getDetailMovies = (id) => async (dispatch) => {
+    dispatch({
+        type: ActionTypes.SET_DETAIL_LOADING,
+        payload: {loadingDetail: true},
+    })
+    const response = await apiClient.get(`movie/${id}?api_key=${apiConfig.apiKey}&language=id`)
+    dispatch({
+        type: ActionTypes.GET_DETAIL_MOVIE,
+        payload: response,
+    })
+}
