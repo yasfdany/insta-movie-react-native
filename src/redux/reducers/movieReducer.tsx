@@ -18,6 +18,14 @@ export const movieReducer = (state = initialState, {type, payload}) => {
                 maxPage: payload.response.data.total_pages,
                 loading: false,
             }
+        case ActionTypes.GET_LOCAL_MOVIES:
+            return {
+                ...state, 
+                movies: payload,
+                page: 1,
+                maxPage: -1,
+                loading: false,
+            }
         case ActionTypes.GET_DETAIL_MOVIE:
             const detailMovie = {
                 ...state, 
