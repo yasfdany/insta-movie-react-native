@@ -1,18 +1,19 @@
 import Realm from "realm";
 import { MovieSchema } from './schemas/MovieSchema';
 import { TvSchema } from './schemas/TvSchema';
-import { MovieDetailSchema } from './schemas/MovieDetailSchema';
+import { MovieDetailSchema, GenreSchema } from './schemas/MovieDetailSchema';
 import { MovieBookmarkSchema } from './schemas/MovieBookmarkSchema';
 
 const realmClient = new Realm({
-    path: "instamovie",
+    path: "instamovie.realm",
     schema: [
         MovieSchema,
         TvSchema,
         MovieBookmarkSchema,
-        // MovieDetailSchema,
+        MovieDetailSchema,
+        GenreSchema,
     ],
-    schemaVersion: 2,
+    schemaVersion: 1,
 })
 
 export default realmClient

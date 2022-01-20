@@ -1,62 +1,41 @@
 let _MovieDetailSchema
-let _BelongsToCollection
-let _Genre
-let _ProductionCompany
-let _ProductionCountry
-let _SpokenLanguage
-_SpokenLanguage = {
-    english_name: "string?",
-    iso_639_1: "string?",
-    name: "string?",
+let _GenreSchema
+
+_GenreSchema = {
+    name: "Genres",
+    primaryKey: "id",
+    properties: {
+        id: "int?",
+        name: "string?",
+    }
 }
-_ProductionCountry = {
-    iso_3166_1: "string?",
-    name: "string?",
-}
-_ProductionCompany = {
-    id: "number?",
-    logo_path: "string?",
-    name: "string?",
-    origin_country: "string?",
-}
-_Genre = {
-    id: "number?",
-    name: "string?",
-}
-_BelongsToCollection = {
-    id: "number?",
-    name: "string?",
-    poster_path: "string?",
-    backdrop_path: "string?",
-}
+
+export const GenreSchema = _GenreSchema
+
 _MovieDetailSchema = {
     name: "MovieDetails",
     properties: {
         adult: "bool?",
         backdrop_path: "string?",
-        belongs_to_collection: _BelongsToCollection,
-        budget: "number?",
-        genres: PropTypes.arrayOf(_Genre),
+        budget: "int?",
+        genres: "Genres[]",
         homepage: "string?",
-        id: "number?",
+        id: "int?",
         imdb_id: "string?",
         original_language: "string?",
         original_title: "string?",
         overview: "string?",
-        popularity: "number?",
+        popularity: "int?",
         poster_path: "string?",
-        production_companies: PropTypes.arrayOf(_ProductionCompany),
-        production_countries: PropTypes.arrayOf(_ProductionCountry),
         release_date: "string?",
-        revenue: "number?",
-        runtime: "number?",
-        spoken_languages: PropTypes.arrayOf(_SpokenLanguage),
+        revenue: "int?",
+        runtime: "int?",
         status: "string?",
         tagline: "string?",
         title: "string?",
         video: "bool?",
-        vote_average: "number?",
-        vote_count: "number?",
+        vote_average: "int?",
+        vote_count: "int?",
     },
     primaryKey: "id",
 }

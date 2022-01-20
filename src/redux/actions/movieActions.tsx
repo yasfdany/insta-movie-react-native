@@ -48,11 +48,33 @@ export const getDetailMovies = (id) => async (dispatch) => {
         type: ActionTypes.SET_DETAIL_LOADING,
         payload: {loadingDetail: true},
     })
-    const response = await apiClient.get(`movie/${id}?api_key=${apiConfig.apiKey}&language=id`)
-    dispatch({
-        type: ActionTypes.GET_DETAIL_MOVIE,
-        payload: response,
-    })
+    await apiClient
+        .get(`movie/${id}?api_key=${apiConfig.apiKey}&language=id`)
+        .then((response: AxiosResponse) => {
+             try {
+                realmClient.write(() => {
+                    realmClient.create("MovieDetails",response.data, true)
+                })
+            } catch(e) {
+                console.error(e.message);
+            }
+
+            dispatch({
+                type: ActionTypes.GET_DETAIL_MOVIE,
+                payload: response.data,
+            })
+        })
+        .catch((reason: AxiosError) => {
+            if (reason.response?.status === 400) {
+                const detailMovie = realmClient.objectForPrimaryKey("MovieDetails", id);
+                if(detailMovie){
+                    dispatch({
+                        type: ActionTypes.GET_DETAIL_MOVIE,
+                        payload: detailMovie,
+                    })
+                }                
+            }
+        })
 }
 
 export const getSimilarMovies = (id) => async (dispatch) => {

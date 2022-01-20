@@ -32,7 +32,7 @@ export const movieReducer = (state = initialState, {type, payload}) => {
                 ...state, 
                 loadingDetail: false,
             }
-            detailMovie[`detail${payload.data.id}`] = payload.data
+            detailMovie[`detail${payload.id}`] = payload
 
             return detailMovie
         case ActionTypes.GET_SIMILAR_MOVIES:
