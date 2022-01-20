@@ -147,7 +147,7 @@ const MovieDetailScreen = (props) => {
             <Animated.View style={{
                 opacity: opacityAnim,
             }}>
-                <Text style={GS.white18}>{movie.title}</Text>
+                <Text numberOfLines={1} style={GS.white18}>{movie.title}</Text>
             </Animated.View>
         </View>
     )
@@ -164,7 +164,7 @@ const MovieDetailScreen = (props) => {
                     ],
                 }}
             />
-            <View style={[GS.row, GS.p18, GS.spaceBetween , {
+            <View style={[GS.row, GS.p18, GS.crossCenter,GS.spaceBetween, {
                 position: 'absolute',
                 left: 0,
                 right: 0,
@@ -173,12 +173,13 @@ const MovieDetailScreen = (props) => {
                 borderTopLeftRadius: 32,
                 borderTopRightRadius: 32,
             }]}>
-                <Text style={GS.black18}>{movie.title}</Text>
+                <Text style={[GS.black18, {width: wp(76)}]}>{movie.title}</Text>
                 <View style={[
                     GS.mainCenter,
                     {
                         backgroundColor: Colors.primary,
                         paddingHorizontal: 8,
+                        paddingVertical: 2,
                         borderRadius: 24,
                     }]
                 }>
