@@ -70,7 +70,7 @@ const TvList = () => {
             }}/>
             {loading ? 
                 <View style={[GS.flex, GS.mainCenter, GS.crossCenter]}>
-                    <ProgressBar style={{color: Colors.primary}}></ProgressBar>
+                    <ProgressBar style={{color: Colors.primary}}/>
                 </View>
              : 
                 <FlatList 

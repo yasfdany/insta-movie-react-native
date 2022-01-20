@@ -26,12 +26,13 @@ import ItemSimilarMovie from '../../components/ItemSimilarMovie'
 import {apiConfig} from "../../../data/services/apiClient"
 
 import { getDetailMovies, getSimilarMovies } from "../../../redux/actions/movieActions"
+import { ProgressBar } from '@react-native-community/progress-bar-android';
 
 const MovieDetailScreen = (props) => {
     const dispatch = useDispatch();
     const navigation = useNavigation()
     const movie = props.route.params.movie
-    const loading = useSelector((state) => state.movie.loadingDetail);
+    const loading = useSelector((state) => state.movie[`loadingDetail${movie.id}`]);
     const movieDetail = useSelector((state) => state.movie[`detail${movie.id}`]);
     const similarMovies = useSelector((state) => state.movie[`similar${movie.id}`]);
     const [height, setheight] = useState(0);
@@ -192,21 +193,67 @@ const MovieDetailScreen = (props) => {
             <StatusBar
                 translucent 
                 backgroundColor="transparent"
-                barStyle={'light-content'} />
-            <View style={[GS.column, GS.flex]}>
-                <CollapsibleToolbar
-                    renderContent={renderContent}
-                    renderNavBar={renderNavBar}
-                    renderBackground={renderBackground}
-                    collapsedNavBarBackgroundColor={Colors.primary}
-                    translucentStatusBar
-                    showsVerticalScrollIndicator={false}
-                    toolBarHeight={hp(50)}
-                    onContentScroll = {(offset, max) => {
-                        opacityValue.setValue(offset/max)
-                    }}
-                />
-            </View>
+                barStyle={movieDetail == null ? 'dark-content' : 'light-content'} />
+            {
+                movieDetail == null
+                ?
+                    <View style={[GS.column, GS.flex]}>
+                        <View style={[GS.row, GS.crossCenter, {marginTop: 24}]}>
+                            <TouchableRipple
+                                style={GS.p14}
+                                onPress={() => {
+                                    navigation.goBack()
+                                }}
+                                rippleColor="rgba(1, 1, 1, .32)">
+                                <Icon name="arrow-back" color="black" size={wp(6)} />
+                            </TouchableRipple>
+                        </View>
+                        {
+                            loading 
+                            ? 
+                                <View style={[GS.flex, GS.mainCenter, GS.crossCenter]}>
+                                    <ProgressBar style={{color: Colors.primary}}/>
+                                </View>
+                            :
+                                <View style={[GS.flex, GS.column,GS.mainCenter, GS.crossCenter]}>
+                                    <Image 
+                                        style={{
+                                            height: hp(36),
+                                            resizeMode: 'contain',
+                                        }}
+                                        source={require("../../../../assets/images/empty_state.png")}>
+                                    </Image>
+                                    <Text style={[GS.black18, GS.bold, {marginTop: 24}]}>Data tidak tersedia</Text>
+                                    <Text style={[
+                                        GS.black14, 
+                                        {
+                                            color: 'gray', 
+                                            textAlign: 'center', 
+                                            marginHorizontal: wp(12),
+                                            marginTop: 4,
+                                        }
+                                    ]}>
+                                        Data tidak tersedia secara offline, aktifkan paket data untuk memuat halaman ini
+                                    </Text>
+                                </View>
+                        }
+                    </View>
+                :
+                    <View style={[GS.column, GS.flex]}>
+                        <CollapsibleToolbar
+                            renderContent={renderContent}
+                            renderNavBar={renderNavBar}
+                            renderBackground={renderBackground}
+                            collapsedNavBarBackgroundColor={Colors.primary}
+                            translucentStatusBar
+                            showsVerticalScrollIndicator={false}
+                            toolBarHeight={hp(50)}
+                            onContentScroll = {(offset, max) => {
+                                opacityValue.setValue(offset/max)
+                            }}
+                        />
+                    </View>
+            }
         </SafeAreaView>
     )
 }

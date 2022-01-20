@@ -6,7 +6,6 @@ const initialState = {
     page: 1,
     maxPage: -1,
     loading: false,
-    loadingDetail: true,
 }
 
 export const movieReducer = (state = initialState, {type, payload}) => {
@@ -30,8 +29,8 @@ export const movieReducer = (state = initialState, {type, payload}) => {
         case ActionTypes.GET_DETAIL_MOVIE:
             const detailMovie = {
                 ...state, 
-                loadingDetail: false,
             }
+            detailMovie[`loadingDetail${payload.id}`] = false
             detailMovie[`detail${payload.id}`] = payload
 
             return detailMovie
@@ -48,10 +47,11 @@ export const movieReducer = (state = initialState, {type, payload}) => {
                 loading: payload.loading,
             }
         case ActionTypes.SET_DETAIL_LOADING:
-            return {
+            const loadingData = {
                 ...state,
-                loadingDetail: payload.loadingDetail,
-            }  
+            }
+            loadingData[`loadingDetail${payload.id}`] = payload[`loadingDetail${payload.id}`]
+            return loadingData
         case ActionTypes.GET_MOVIE_BOOKMARK:
             return {
                 ...state,
