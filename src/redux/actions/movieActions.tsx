@@ -73,12 +73,10 @@ export const getDetailMovies = (id) => async (dispatch) => {
         .catch((reason: AxiosError) => {
             if (reason.response?.status === 400) {
                 const detailMovie = realmClient.objectForPrimaryKey("MovieDetails", id);
-                if(detailMovie){
-                    dispatch({
-                        type: ActionTypes.GET_DETAIL_MOVIE,
-                        payload: detailMovie,
-                    })
-                }                
+                dispatch({
+                    type: ActionTypes.GET_DETAIL_MOVIE,
+                    payload: detailMovie,
+                })             
             }
         })
 }

@@ -17,6 +17,7 @@ import CollapsibleToolbar from '../../components/CollapsibleToolbar/index.js'
 import { TouchableRipple } from 'react-native-paper'
 import { useNavigation } from '@react-navigation/native'
 import { useDispatch,useSelector } from "react-redux";
+import NumberFormat from 'react-number-format'
 
 import GS from '../../../constants/globalStyles'
 import Colors from '../../../constants/colors'
@@ -94,8 +95,8 @@ const MovieDetailScreen = (props) => {
                     <TitleSection style={{marginTop: 12}} title="Status" value={movieDetail?.status ?? ""}/>
                     <TitleSection style={{marginTop: 12}} title="Runtime" value={movieDetail?.runtime ?? ""}/>
                     <TitleSection style={{marginTop: 12}} title="Release" value={movieDetail?.release_date ?? ""}/>
-                    <TitleSection style={{marginTop: 12}} title="Budget" value={`Rp. ${movieDetail?.budget ?? ""}`}/>
-                    <TitleSection style={{marginTop: 12}} title="Revenue" value={`Rp. ${movieDetail?.revenue ?? ""}`}/>
+                    <TitleSection style={{marginTop: 12}} title="Budget" value={`Rp. ${movieDetail?.budget ?? "0"}`}/>
+                    <TitleSection style={{marginTop: 12}} title="Revenue" value={`Rp. ${movieDetail?.revenue ?? "0"}`}/>
                 </View>
                 <Image 
                     style={styles.poserImage} 
