@@ -45,15 +45,40 @@ const MovieBookmarkScreen = () => {
                 </TouchableRipple>
                 <Text style={[GS.white18, {marginLeft: 12}]}>Bookmark</Text>
             </View>
-            <FlatList
-                scrollEventThrottle={5}
-                style={{flex: 1}}
-                data={bookmarks}
-                onEndReachedThreshold={0.5}
-                renderItem={({ item }) => (
-                    <ItemMovie movie={item} bookmarked/>
-                )}
-            />
+            { bookmarks.length > 0 
+                ? 
+                    <FlatList
+                        scrollEventThrottle={5}
+                        style={{flex: 1}}
+                        data={bookmarks}
+                        onEndReachedThreshold={0.5}
+                        renderItem={({ item }) => (
+                            <ItemMovie movie={item} bookmarked/>
+                        )}
+                    />
+                :
+                    <View style={[GS.flex, GS.column,GS.mainCenter, GS.crossCenter]}>
+                        <Image 
+                            style={{
+                                height: hp(36),
+                                resizeMode: 'contain',
+                            }}
+                            source={require("../../../../assets/images/empty_state.png")}>
+                        </Image>
+                        <Text style={[GS.black18, GS.bold, {marginTop: 24}]}>Bookmark Kosong</Text>
+                        <Text style={[
+                            GS.black14, 
+                            {
+                                color: 'gray', 
+                                textAlign: 'center', 
+                                marginHorizontal: wp(10),
+                                marginTop: 4,
+                            }
+                        ]}>
+                            Tambahkan bookmark film pertamamu dengan menekan icon '🔖' di list film
+                        </Text>
+                    </View>
+            }
         </View> 
     )
 }
