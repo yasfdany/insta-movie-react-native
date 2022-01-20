@@ -49,7 +49,7 @@ const MovieList = () => {
                         
                     }}
                     rippleColor="rgba(0, 0, 0, .32)">
-                    <Icon name="photo-camera" size={wp(6)} />
+                    <Icon name="photo-camera" color="gray" size={wp(6)} />
                 </TouchableRipple>
                 <TouchableRipple
                     borderless
@@ -58,7 +58,7 @@ const MovieList = () => {
                         navigation.navigate('MovieBookmarkScreen')
                     }}
                     rippleColor="rgba(0, 0, 0, .32)">
-                    <Icon name="bookmark" size={wp(6)} />
+                    <Icon name="bookmark" color="gray" size={wp(6)} />
                 </TouchableRipple>
             </View>
             <FlatList

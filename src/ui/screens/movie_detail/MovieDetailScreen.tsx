@@ -30,22 +30,23 @@ import { getDetailMovies, getSimilarMovies } from "../../../redux/actions/movieA
 const MovieDetailScreen = (props) => {
     const dispatch = useDispatch();
     const navigation = useNavigation()
-    const [extraHeight, setExtraHeight] = useState(null)
     const movie = props.route.params.movie
     const loading = useSelector((state) => state.movie.loadingDetail);
     const movieDetail = useSelector((state) => state.movie[`detail${movie.id}`]);
     const similarMovies = useSelector((state) => state.movie[`similar${movie.id}`]);
+    const [height, setheight] = useState(0);
+    const contentHeight = hp(100) - 56
 
     let opacityValue = new Animated.Value(0)
-    opacityAnim = opacityValue.interpolate({
+    let opacityAnim = opacityValue.interpolate({
         inputRange: [0, 1],
         outputRange: [0, 1]
     })
-    parralaxAnim = opacityValue.interpolate({
+    let parralaxAnim = opacityValue.interpolate({
         inputRange: [0, 1],
         outputRange: [0, 100]
     })
-    scaleAnim = opacityValue.interpolate({
+    let scaleAnim = opacityValue.interpolate({
         inputRange: [0, 1],
         outputRange: [1, 1.2]
     })
@@ -56,14 +57,15 @@ const MovieDetailScreen = (props) => {
     }, [])
 
     renderContent = () => (
-        <ScrollView style={{backgroundColor: 'white'}} onLayout={(event) => {
-            const {x, y, height, width} = event.nativeEvent.layout
-            const minHeight = hp(90)
+        <ScrollView 
+            onLayout={(event) => {
+                const {x, y, height, width} = event.nativeEvent.layout
 
-            if(height < minHeight){
-                setExtraHeight(minHeight - height)
-            }
-        }}>
+                if(height < contentHeight){
+                    setheight(contentHeight - height + 24)
+                }
+            }}
+            style={{backgroundColor: 'white'}}>
             <FlatList
                 showsHorizontalScrollIndicator={false}
                 horizontal={true}
@@ -122,7 +124,7 @@ const MovieDetailScreen = (props) => {
                     <ItemSimilarMovie movie={item} style={{marginRight: 12}}/>
                 )}>
             </FlatList>
-            {extraHeight ? <View style={{height: extraHeight}}/> : null}
+            <View style={{height: height}}/>
         </ScrollView>
     )
 
@@ -193,9 +195,9 @@ const MovieDetailScreen = (props) => {
                 barStyle={'light-content'} />
             <View style={[GS.column, GS.flex]}>
                 <CollapsibleToolbar
-                    renderContent={this.renderContent}
-                    renderNavBar={this.renderNavBar}
-                    renderBackground={this.renderBackground}
+                    renderContent={renderContent}
+                    renderNavBar={renderNavBar}
+                    renderBackground={renderBackground}
                     collapsedNavBarBackgroundColor={Colors.primary}
                     translucentStatusBar
                     showsVerticalScrollIndicator={false}

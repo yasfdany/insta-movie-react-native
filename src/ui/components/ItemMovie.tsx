@@ -39,6 +39,7 @@ const ItemMovie = (props) => {
                     rippleColor="rgba(0, 0, 0, .32)">
                     <Icon 
                         name="more-vert"
+                        color="gray"
                         size={wp(6)} 
                     />
                 </TouchableOpacity>
@@ -71,7 +72,10 @@ const ItemMovie = (props) => {
                     }}
                     style={{marginHorizontal: 12}}
                     rippleColor="rgba(0, 0, 0, .32)">
-                    <Icon name="chat-bubble-outline" size={wp(6)} />
+                    <Icon 
+                        name="chat-bubble-outline" 
+                        color="gray"
+                        size={wp(6)} />
                 </TouchableOpacity>
                 <TouchableOpacity
                     onPress={() => {
@@ -79,7 +83,10 @@ const ItemMovie = (props) => {
                     }}
                     style={{flex:1}}
                     rippleColor="rgba(0, 0, 0, .32)">
-                    <Icon name="share" size={wp(6)} />
+                    <Icon 
+                        name="share" 
+                        color="gray"
+                        size={wp(6)} />
                 </TouchableOpacity>
                 <TouchableOpacity
                     onPress={() => {
@@ -88,6 +95,7 @@ const ItemMovie = (props) => {
                     rippleColor="rgba(0, 0, 0, .32)">
                     <Icon 
                         name={ props.bookmarked ? "bookmark" : "bookmark-border"} 
+                        color="gray"
                         size={wp(6)} />
                 </TouchableOpacity>
              </View>
