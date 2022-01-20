@@ -25,7 +25,7 @@ import TitleSection from '../../components/TitleSection'
 import ItemSimilarMovie from '../../components/ItemSimilarMovie'
 import {apiConfig} from "../../../data/services/apiClient"
 
-import { getDetailMovies, getSimilarMovies } from "../../../redux/actions/movieActions"
+import { getDetailMovies, getSimilarMovies, toggleMovieBookmark } from "../../../redux/actions/movieActions"
 import { ProgressBar } from '@react-native-community/progress-bar-android';
 
 const MovieDetailScreen = (props) => {
@@ -35,8 +35,10 @@ const MovieDetailScreen = (props) => {
     const loading = useSelector((state) => state.movie[`loadingDetail${movie.id}`]);
     const movieDetail = useSelector((state) => state.movie[`detail${movie.id}`]);
     const similarMovies = useSelector((state) => state.movie[`similar${movie.id}`]);
+    const bookmarks = useSelector((state) => state.movie.movieBookmarks)
     const [height, setheight] = useState(0);
     const contentHeight = hp(100) - 56
+    const [bookmarked, setbookmarked] = useState(false);
 
     let opacityValue = new Animated.Value(0)
     let opacityAnim = opacityValue.interpolate({
@@ -56,6 +58,16 @@ const MovieDetailScreen = (props) => {
         dispatch(getSimilarMovies(movie.id));
         dispatch(getDetailMovies(movie.id));
     }, [])
+
+    useEffect(() => {
+        setbookmarked(false)
+        for(let bookmark of bookmarks){
+            if(bookmark.id == movie.id){
+                setbookmarked(true)
+                break
+            }
+        }
+    }, [bookmarks]);    
 
     renderContent = () => (
         <ScrollView 
@@ -146,9 +158,19 @@ const MovieDetailScreen = (props) => {
             </TouchableRipple>
             <Animated.View style={{
                 opacity: opacityAnim,
+                flex: 1,
             }}>
                 <Text numberOfLines={1} style={GS.white18}>{movie.title}</Text>
             </Animated.View>
+            <TouchableRipple
+                borderless
+                style={GS.p18}
+                onPress={() => {
+                    dispatch(toggleMovieBookmark(movie))
+                }}
+                rippleColor="rgba(0, 0, 0, .32)">
+                    <Icon name={bookmarked ? "bookmark" : "bookmark-border"} color="white" size={wp(6)} />
+            </TouchableRipple>
         </View>
     )
 
