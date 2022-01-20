@@ -1,5 +1,3 @@
-import PropTypes from "prop-types"
-
 let _MovieDetailSchema
 let _BelongsToCollection
 let _Genre

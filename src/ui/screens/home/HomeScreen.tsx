@@ -8,7 +8,7 @@ import {
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen'
-import { getMovies } from "../../../redux/actions/movieActions"
+import { getMovies, getMovieBookmark } from "../../../redux/actions/movieActions"
 import { getTv, getStory } from '../../../redux/actions/tvActions'
 import { useDispatch } from "react-redux"
 
@@ -22,6 +22,7 @@ const HomeScreen = ({ navigation }) => {
   const dispatch = useDispatch()
 
   useEffect(() => {
+    dispatch(getMovieBookmark())
     dispatch(getStory())
     dispatch(getMovies(1, true))
     dispatch(getTv(1, "", true))

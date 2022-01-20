@@ -1,23 +1,24 @@
-let _TvSchema
+let _MovieBookmarkSchema
 
-_TvSchema = {
-    name: "Tvs",
+_MovieBookmarkSchema = {
+    name: "MovieBookmarks",
     properties: {
+        adult: "bool?",
         backdrop_path: "string?",
-        first_air_date: "string?",
         genre_ids: "int?[]",
         id: "int?",
-        name: "string?",
-        origin_country: "string?[]",
         original_language: "string?",
-        original_name: "string?",
+        original_title: "string?",
         overview: "string?",
         popularity: "int?",
         poster_path: "string?",
+        release_date: "string?",
+        title: "string?",
+        video: "bool?",
         vote_average: "int?",
         vote_count: "int?",
     },
     primaryKey: "id",
 }
 
-export const TvSchema = _TvSchema
+export const MovieBookmarkSchema = _MovieBookmarkSchema

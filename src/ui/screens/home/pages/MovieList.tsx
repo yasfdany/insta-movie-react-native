@@ -17,9 +17,12 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-nativ
 import { useDispatch, useSelector } from "react-redux"
 import { getMovies } from "../../../../redux/actions/movieActions"
 import { ActionTypes } from '../../../../redux/constants/actionTypes';
+import { useNavigation } from '@react-navigation/native';
 
 const MovieList = () => {
+    const navigation = useNavigation()
     const dispatch = useDispatch()
+    const bookmarks = useSelector((state) => state.movie.movieBookmarks)
     const movies = useSelector((state) => state.movie.movies)
     const stories = useSelector((state) => state.tv.stories)
     const page = useSelector((state) => state.movie.page)
@@ -33,7 +36,7 @@ const MovieList = () => {
             setRefreshing(false)
         }
     }, [loading,movies])
-    
+
     return (
         <View style={[GS.flex, GS.column]}>
             <View style={[
@@ -52,10 +55,10 @@ const MovieList = () => {
                     borderless
                     style={GS.p18}
                     onPress={() => {
-
+                        navigation.navigate('MovieBookmarkScreen')
                     }}
                     rippleColor="rgba(0, 0, 0, .32)">
-                    <Icon name="mail" size={wp(6)} />
+                    <Icon name="bookmark" size={wp(6)} />
                 </TouchableRipple>
             </View>
             <FlatList
@@ -88,9 +91,16 @@ const MovieList = () => {
                         dispatch(getMovies(page+1))
                     }
                 }}
-                renderItem={({ item }) => (
-                    <ItemMovie movie={item}/>
-                )}
+                renderItem={({ item }) => {
+                    let bookmarked = false
+                    for(let bookmark of bookmarks){
+                        if(bookmark.id == item.id){
+                            bookmarked = true
+                            break
+                        }
+                    }
+                    return <ItemMovie movie={item} bookmarked={bookmarked}/>
+                }}
             />
         </View> 
     )

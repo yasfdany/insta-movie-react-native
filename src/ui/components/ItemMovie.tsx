@@ -12,12 +12,15 @@ import { TouchableRipple } from 'react-native-paper'
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import { useNavigation } from '@react-navigation/native'
+import { useDispatch } from "react-redux"
+
 import {apiConfig} from "../../data/services/apiClient"
+import { toggleMovieBookmark } from "../../redux/actions/movieActions"
 
 const ItemMovie = (props) => {
+    const dispatch = useDispatch()
     const navigation = useNavigation()
     const [love, setLove] = useState(false)
-    const [bookmark, setBookmark] = useState(false)
 
     return (
         <View style={GS.column}>
@@ -80,11 +83,11 @@ const ItemMovie = (props) => {
                 </TouchableOpacity>
                 <TouchableOpacity
                     onPress={() => {
-                        setBookmark(current => !current)
+                        dispatch(toggleMovieBookmark(props.movie))
                     }}
                     rippleColor="rgba(0, 0, 0, .32)">
                     <Icon 
-                        name={ bookmark ? "bookmark" : "bookmark-border"} 
+                        name={ props.bookmarked ? "bookmark" : "bookmark-border"} 
                         size={wp(6)} />
                 </TouchableOpacity>
              </View>

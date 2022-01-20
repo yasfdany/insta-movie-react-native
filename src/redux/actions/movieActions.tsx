@@ -1,6 +1,8 @@
 import {apiClient, apiConfig} from "../../data/services/apiClient"
 import {ActionTypes} from "../constants/actionTypes"
 import realmClient from '../../data/database/realmClient';
+import { MovieBookmarkSchema, MovieBookmarkSchemaInterface } from '../../data/database/schemas/MovieBookmarkSchema';
+import MovieBookmarkScreen from '../../ui/screens/movie_bookmark/MovieBookmarkScreen';
 
 export const getMovies = (page, reset = false) => async (dispatch) => {
     if(reset){
@@ -62,4 +64,36 @@ export const getSimilarMovies = (id) => async (dispatch) => {
             response: response,
         },
     })
+}
+
+export const getMovieBookmark = () => async (dispatch) => {
+    const bookmarks = realmClient.objects("MovieBookmarks");
+    
+    dispatch({
+        type: ActionTypes.GET_MOVIE_BOOKMARK,
+        payload: bookmarks,
+    })
+}
+
+
+export const toggleMovieBookmark = (movie) => async (dispatch) => {
+    const bookmarks = realmClient.objects("MovieBookmarks");
+    const bookmark = bookmarks.filtered(`id = ${movie.id}`);
+
+    try {
+        realmClient.write(() => {
+            if(bookmark.length > 0){
+                realmClient.delete(bookmark[0]);
+            } else {
+                realmClient.create("MovieBookmarks",movie, true)
+            }
+        })
+
+        dispatch({
+            type: ActionTypes.GET_MOVIE_BOOKMARK,
+            payload: bookmarks,
+        })
+    } catch(e) {
+        console.error(e.message);
+    }
 }

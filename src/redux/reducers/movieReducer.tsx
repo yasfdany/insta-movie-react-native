@@ -2,6 +2,7 @@ import { ActionTypes } from "../constants/actionTypes"
 
 const initialState = {
     movies: [],
+    movieBookmarks: [],
     page: 1,
     maxPage: -1,
     loading: false,
@@ -50,6 +51,11 @@ export const movieReducer = (state = initialState, {type, payload}) => {
             return {
                 ...state,
                 loadingDetail: payload.loadingDetail,
+            }  
+        case ActionTypes.GET_MOVIE_BOOKMARK:
+            return {
+                ...state,
+                movieBookmarks: payload,
             }    
         default:
             return state
