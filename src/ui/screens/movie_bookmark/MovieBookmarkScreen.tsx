@@ -41,7 +41,7 @@ const MovieBookmarkScreen = () => {
                         navigation.goBack()
                     }}
                     rippleColor="rgba(1, 1, 1, .32)">
-                    <Icon name="arrow-back" color="white" size={wp(6)} />
+                    <Icon name="arrow-back" color="white" size={24} />
                 </TouchableRipple>
                 <Text style={[GS.white18, {marginLeft: 12}]}>Bookmark</Text>
             </View>

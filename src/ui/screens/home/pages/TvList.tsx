@@ -8,6 +8,7 @@ import {
   FlatList,
 } from 'react-native'
 import {ProgressBar} from '@react-native-community/progress-bar-android';
+import DeviceInfo from 'react-native-device-info';
 
 import Colors from '../../../../constants/colors'
 import GS from '../../../../constants/globalStyles'
@@ -89,7 +90,7 @@ const TvList = () => {
                     renderItem={({ item }) => (
                         <ItemTv tv={item}/>
                     )}
-                    numColumns={3}
+                    numColumns={DeviceInfo.isTablet() ? 4 : 3}
                     keyExtractor={(item, index) => index.toString()}/>
             }
         </View> 

@@ -155,7 +155,7 @@ const MovieDetailScreen = (props) => {
                     navigation.goBack()
                 }}
                 rippleColor="rgba(1, 1, 1, .32)">
-                <Icon name="arrow-back" color="white" size={wp(6)} />
+                <Icon name="arrow-back" color="white" size={24} />
             </TouchableRipple>
             <Animated.View style={{
                 opacity: opacityAnim,
@@ -170,7 +170,7 @@ const MovieDetailScreen = (props) => {
                     dispatch(toggleMovieBookmark(movie))
                 }}
                 rippleColor="rgba(0, 0, 0, .32)">
-                    <Icon name={bookmarked ? "bookmark" : "bookmark-border"} color="white" size={wp(6)} />
+                    <Icon name={bookmarked ? "bookmark" : "bookmark-border"} color="white" size={24} />
             </TouchableRipple>
         </View>
     )
@@ -229,7 +229,7 @@ const MovieDetailScreen = (props) => {
                                     navigation.goBack()
                                 }}
                                 rippleColor="rgba(1, 1, 1, .32)">
-                                <Icon name="arrow-back" color="black" size={wp(6)} />
+                                <Icon name="arrow-back" color="black" size={24} />
                             </TouchableRipple>
                         </View>
                         {

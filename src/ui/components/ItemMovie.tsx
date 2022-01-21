@@ -40,7 +40,7 @@ const ItemMovie = (props) => {
                     <Icon 
                         name="more-vert"
                         color="gray"
-                        size={wp(6)} 
+                        size={24} 
                     />
                 </TouchableOpacity>
             </View>
@@ -64,7 +64,7 @@ const ItemMovie = (props) => {
                     <Icon 
                         name={ love ? "favorite" : "favorite-border"} 
                         color={ love ? "red" : "gray" }
-                        size={wp(6)} />
+                        size={24} />
                 </TouchableOpacity>
                 <TouchableOpacity
                     onPress={() => {
@@ -75,7 +75,7 @@ const ItemMovie = (props) => {
                     <Icon 
                         name="chat-bubble-outline" 
                         color="gray"
-                        size={wp(6)} />
+                        size={24} />
                 </TouchableOpacity>
                 <TouchableOpacity
                     onPress={() => {
@@ -86,7 +86,7 @@ const ItemMovie = (props) => {
                     <Icon 
                         name="share" 
                         color="gray"
-                        size={wp(6)} />
+                        size={24} />
                 </TouchableOpacity>
                 <TouchableOpacity
                     onPress={() => {
@@ -96,7 +96,7 @@ const ItemMovie = (props) => {
                     <Icon 
                         name={ props.bookmarked ? "bookmark" : "bookmark-border"} 
                         color="gray"
-                        size={wp(6)} />
+                        size={24} />
                 </TouchableOpacity>
              </View>
              <Text style={[GS.black14, GS.moreLineHeight, {marginHorizontal: 14, marginBottom: 14}]}>
@@ -116,10 +116,10 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(0,0,0,0.08)',
     },
     profileImage: {
-        height: wp(9),
-        width: wp(9),
+        height: 48,
+        width: 48,
         resizeMode: 'cover',
-        borderRadius: wp(9),
+        borderRadius: 48,
         backgroundColor: 'rgba(0,0,0,0.08)',
     },
 })

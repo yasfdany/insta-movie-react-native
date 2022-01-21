@@ -34,13 +34,11 @@ export const getTv = (page, search = "", reset = false) => async (dispatch) => {
             })
         })
         .catch((reason: AxiosError) => {
-            if (reason.response?.status === 400) {
-                const tvs = realm.objects("Tvs");
-                dispatch({
-                    type: ActionTypes.GET_LOCAL_TV,
-                    payload: tvs,
-                })
-            }
+            const tvs = realm.objects("Tvs");
+            dispatch({
+                type: ActionTypes.GET_LOCAL_TV,
+                payload: tvs,
+            })
         })
 }
 
@@ -64,12 +62,10 @@ export const getStory = () => async (dispatch) => {
             })
         })
         .catch((reason: AxiosError) => {
-            if (reason.response?.status === 400) {
-                const stories = realm.objects("Tvs");
-                dispatch({
-                    type: ActionTypes.GET_LOCAL_STORY,
-                    payload: stories,
-                })
-            }
+            const stories = realm.objects("Tvs");
+            dispatch({
+                type: ActionTypes.GET_LOCAL_STORY,
+                payload: stories,
+            })
         })
 }

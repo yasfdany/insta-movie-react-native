@@ -33,13 +33,11 @@ export const getMovies = (page, reset = false) => async (dispatch) => {
             })
         })
         .catch((reason: AxiosError) => {
-            if (reason.response?.status === 400) {
-                const movies = realmClient.objects("Movies");
-                dispatch({
-                    type: ActionTypes.GET_LOCAL_MOVIES,
-                    payload: movies,
-                })
-            }
+            const movies = realmClient.objects("Movies");
+            dispatch({
+                type: ActionTypes.GET_LOCAL_MOVIES,
+                payload: movies,
+            })
         })
 }
 
@@ -67,17 +65,15 @@ export const getDetailMovies = (id) => async (dispatch) => {
 
             dispatch({
                 type: ActionTypes.GET_DETAIL_MOVIE,
-                payload: response.data,
+                payload: {id: id, data: response.data},
             })
         })
         .catch((reason: AxiosError) => {
-            if (reason.response?.status === 400) {
-                const detailMovie = realmClient.objectForPrimaryKey("MovieDetails", id);
-                dispatch({
-                    type: ActionTypes.GET_DETAIL_MOVIE,
-                    payload: detailMovie,
-                })             
-            }
+            const detailMovie = realmClient.objectForPrimaryKey("MovieDetails", id);
+            dispatch({
+                type: ActionTypes.GET_DETAIL_MOVIE,
+                payload: {id: id, data: detailMovie},
+            })       
         })
 }
 

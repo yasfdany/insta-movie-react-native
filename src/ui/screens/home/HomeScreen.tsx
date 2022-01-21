@@ -40,7 +40,7 @@ const HomeScreen = ({ navigation }) => {
           options={{
             headerShown : false,
             tabBarIcon: ({ color, size }) => (
-              <Icon name="theaters" color={color} size={wp(5.6)} />
+              <Icon name="theaters" color={color} size={24} />
             ),
           }} 
           name="Movie" 
@@ -50,7 +50,7 @@ const HomeScreen = ({ navigation }) => {
           options={{
             headerShown : false,
             tabBarIcon: ({ color, size }) => (
-              <Icon name="live-tv" color={color} size={wp(5.6)} />
+              <Icon name="live-tv" color={color} size={24} />
             ),
           }} 
           name="Tv" 
