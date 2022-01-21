@@ -17,6 +17,7 @@ import CollapsibleToolbar from '../../components/CollapsibleToolbar/index.js'
 import { TouchableRipple } from 'react-native-paper'
 import { useNavigation } from '@react-navigation/native'
 import { useDispatch,useSelector } from "react-redux";
+import NumberFormat from 'react-number-format'
 
 import GS from '../../../constants/globalStyles'
 import Colors from '../../../constants/colors'
@@ -25,27 +26,31 @@ import TitleSection from '../../components/TitleSection'
 import ItemSimilarMovie from '../../components/ItemSimilarMovie'
 import {apiConfig} from "../../../data/services/apiClient"
 
-import { getDetailMovies, getSimilarMovies } from "../../../redux/actions/movieActions"
+import { getDetailMovies, getSimilarMovies, toggleMovieBookmark } from "../../../redux/actions/movieActions"
+import { ProgressBar } from '@react-native-community/progress-bar-android';
 
 const MovieDetailScreen = (props) => {
     const dispatch = useDispatch();
     const navigation = useNavigation()
-    const [extraHeight, setExtraHeight] = useState(null)
     const movie = props.route.params.movie
-    const loading = useSelector((state) => state.movie.loadingDetail);
+    const loading = useSelector((state) => state.movie[`loadingDetail${movie.id}`]);
     const movieDetail = useSelector((state) => state.movie[`detail${movie.id}`]);
     const similarMovies = useSelector((state) => state.movie[`similar${movie.id}`]);
+    const bookmarks = useSelector((state) => state.movie.movieBookmarks)
+    const [height, setheight] = useState(0);
+    const contentHeight = hp(100) - 56
+    const [bookmarked, setbookmarked] = useState(false);
 
     let opacityValue = new Animated.Value(0)
-    opacityAnim = opacityValue.interpolate({
+    let opacityAnim = opacityValue.interpolate({
         inputRange: [0, 1],
         outputRange: [0, 1]
     })
-    parralaxAnim = opacityValue.interpolate({
+    let parralaxAnim = opacityValue.interpolate({
         inputRange: [0, 1],
         outputRange: [0, 100]
     })
-    scaleAnim = opacityValue.interpolate({
+    let scaleAnim = opacityValue.interpolate({
         inputRange: [0, 1],
         outputRange: [1, 1.2]
     })
@@ -55,15 +60,26 @@ const MovieDetailScreen = (props) => {
         dispatch(getDetailMovies(movie.id));
     }, [])
 
-    renderContent = () => (
-        <ScrollView style={{backgroundColor: 'white'}} onLayout={(event) => {
-            const {x, y, height, width} = event.nativeEvent.layout
-            const minHeight = hp(90)
-
-            if(height < minHeight){
-                setExtraHeight(minHeight - height)
+    useEffect(() => {
+        setbookmarked(false)
+        for(let bookmark of bookmarks){
+            if(bookmark.id == movie.id){
+                setbookmarked(true)
+                break
             }
-        }}>
+        }
+    }, [bookmarks]);    
+
+    renderContent = () => (
+        <ScrollView 
+            onLayout={(event) => {
+                const {x, y, height, width} = event.nativeEvent.layout
+
+                if(height < contentHeight){
+                    setheight(contentHeight - height + 24)
+                }
+            }}
+            style={{backgroundColor: 'white'}}>
             <FlatList
                 showsHorizontalScrollIndicator={false}
                 horizontal={true}
@@ -79,8 +95,8 @@ const MovieDetailScreen = (props) => {
                     <TitleSection style={{marginTop: 12}} title="Status" value={movieDetail?.status ?? ""}/>
                     <TitleSection style={{marginTop: 12}} title="Runtime" value={movieDetail?.runtime ?? ""}/>
                     <TitleSection style={{marginTop: 12}} title="Release" value={movieDetail?.release_date ?? ""}/>
-                    <TitleSection style={{marginTop: 12}} title="Budget" value={`Rp. ${movieDetail?.budget ?? ""}`}/>
-                    <TitleSection style={{marginTop: 12}} title="Revenue" value={`Rp. ${movieDetail?.revenue ?? ""}`}/>
+                    <TitleSection style={{marginTop: 12}} title="Budget" value={`Rp. ${movieDetail?.budget ?? "0"}`}/>
+                    <TitleSection style={{marginTop: 12}} title="Revenue" value={`Rp. ${movieDetail?.revenue ?? "0"}`}/>
                 </View>
                 <Image 
                     style={styles.poserImage} 
@@ -122,7 +138,7 @@ const MovieDetailScreen = (props) => {
                     <ItemSimilarMovie movie={item} style={{marginRight: 12}}/>
                 )}>
             </FlatList>
-            {extraHeight ? <View style={{height: extraHeight}}/> : null}
+            <View style={{height: height}}/>
         </ScrollView>
     )
 
@@ -139,13 +155,23 @@ const MovieDetailScreen = (props) => {
                     navigation.goBack()
                 }}
                 rippleColor="rgba(1, 1, 1, .32)">
-                <Icon name="arrow-back" color="white" size={wp(6)} />
+                <Icon name="arrow-back" color="white" size={24} />
             </TouchableRipple>
             <Animated.View style={{
                 opacity: opacityAnim,
+                flex: 1,
             }}>
-                <Text style={GS.white18}>{movie.title}</Text>
+                <Text numberOfLines={1} style={GS.white18}>{movie.title}</Text>
             </Animated.View>
+            <TouchableRipple
+                borderless
+                style={GS.p18}
+                onPress={() => {
+                    dispatch(toggleMovieBookmark(movie))
+                }}
+                rippleColor="rgba(0, 0, 0, .32)">
+                    <Icon name={bookmarked ? "bookmark" : "bookmark-border"} color="white" size={24} />
+            </TouchableRipple>
         </View>
     )
 
@@ -161,7 +187,7 @@ const MovieDetailScreen = (props) => {
                     ],
                 }}
             />
-            <View style={[GS.row, GS.p18, GS.spaceBetween , {
+            <View style={[GS.row, GS.p18, GS.crossCenter,GS.spaceBetween, {
                 position: 'absolute',
                 left: 0,
                 right: 0,
@@ -170,12 +196,13 @@ const MovieDetailScreen = (props) => {
                 borderTopLeftRadius: 32,
                 borderTopRightRadius: 32,
             }]}>
-                <Text style={GS.black18}>{movie.title}</Text>
+                <Text style={[GS.black18, {width: wp(76)}]}>{movie.title}</Text>
                 <View style={[
                     GS.mainCenter,
                     {
                         backgroundColor: Colors.primary,
                         paddingHorizontal: 8,
+                        paddingVertical: 2,
                         borderRadius: 24,
                     }]
                 }>
@@ -190,21 +217,67 @@ const MovieDetailScreen = (props) => {
             <StatusBar
                 translucent 
                 backgroundColor="transparent"
-                barStyle={'light-content'} />
-            <View style={[GS.column, GS.flex]}>
-                <CollapsibleToolbar
-                    renderContent={this.renderContent}
-                    renderNavBar={this.renderNavBar}
-                    renderBackground={this.renderBackground}
-                    collapsedNavBarBackgroundColor={Colors.primary}
-                    translucentStatusBar
-                    showsVerticalScrollIndicator={false}
-                    toolBarHeight={hp(50)}
-                    onContentScroll = {(offset, max) => {
-                        opacityValue.setValue(offset/max)
-                    }}
-                />
-            </View>
+                barStyle={movieDetail == null ? 'dark-content' : 'light-content'} />
+            {
+                movieDetail == null
+                ?
+                    <View style={[GS.column, GS.flex]}>
+                        <View style={[GS.row, GS.crossCenter, {marginTop: 24}]}>
+                            <TouchableRipple
+                                style={GS.p14}
+                                onPress={() => {
+                                    navigation.goBack()
+                                }}
+                                rippleColor="rgba(1, 1, 1, .32)">
+                                <Icon name="arrow-back" color="black" size={24} />
+                            </TouchableRipple>
+                        </View>
+                        {
+                            loading 
+                            ? 
+                                <View style={[GS.flex, GS.mainCenter, GS.crossCenter]}>
+                                    <ProgressBar style={{color: Colors.primary}}/>
+                                </View>
+                            :
+                                <View style={[GS.flex, GS.column,GS.mainCenter, GS.crossCenter]}>
+                                    <Image 
+                                        style={{
+                                            height: hp(36),
+                                            resizeMode: 'contain',
+                                        }}
+                                        source={require("../../../../assets/images/empty_state.png")}>
+                                    </Image>
+                                    <Text style={[GS.black18, GS.bold, {marginTop: 24}]}>Data tidak tersedia</Text>
+                                    <Text style={[
+                                        GS.black14, 
+                                        {
+                                            color: 'gray', 
+                                            textAlign: 'center', 
+                                            marginHorizontal: wp(12),
+                                            marginTop: 4,
+                                        }
+                                    ]}>
+                                        Data tidak tersedia secara offline, aktifkan paket data untuk memuat halaman ini
+                                    </Text>
+                                </View>
+                        }
+                    </View>
+                :
+                    <View style={[GS.column, GS.flex]}>
+                        <CollapsibleToolbar
+                            renderContent={renderContent}
+                            renderNavBar={renderNavBar}
+                            renderBackground={renderBackground}
+                            collapsedNavBarBackgroundColor={Colors.primary}
+                            translucentStatusBar
+                            showsVerticalScrollIndicator={false}
+                            toolBarHeight={hp(50)}
+                            onContentScroll = {(offset, max) => {
+                                opacityValue.setValue(offset/max)
+                            }}
+                        />
+                    </View>
+            }
         </SafeAreaView>
     )
 }

@@ -2,10 +2,10 @@ import { ActionTypes } from "../constants/actionTypes"
 
 const initialState = {
     movies: [],
+    movieBookmarks: [],
     page: 1,
     maxPage: -1,
     loading: false,
-    loadingDetail: true,
 }
 
 export const movieReducer = (state = initialState, {type, payload}) => {
@@ -18,12 +18,20 @@ export const movieReducer = (state = initialState, {type, payload}) => {
                 maxPage: payload.response.data.total_pages,
                 loading: false,
             }
+        case ActionTypes.GET_LOCAL_MOVIES:
+            return {
+                ...state, 
+                movies: payload,
+                page: 1,
+                maxPage: -1,
+                loading: false,
+            }
         case ActionTypes.GET_DETAIL_MOVIE:
             const detailMovie = {
                 ...state, 
-                loadingDetail: false,
             }
-            detailMovie[`detail${payload.data.id}`] = payload.data
+            detailMovie[`loadingDetail${payload.id}`] = false
+            detailMovie[`detail${payload.id}`] = payload.data
 
             return detailMovie
         case ActionTypes.GET_SIMILAR_MOVIES:
@@ -39,9 +47,15 @@ export const movieReducer = (state = initialState, {type, payload}) => {
                 loading: payload.loading,
             }
         case ActionTypes.SET_DETAIL_LOADING:
+            const loadingData = {
+                ...state,
+            }
+            loadingData[`loadingDetail${payload.id}`] = payload[`loadingDetail${payload.id}`]
+            return loadingData
+        case ActionTypes.GET_MOVIE_BOOKMARK:
             return {
                 ...state,
-                loadingDetail: payload.loadingDetail,
+                movieBookmarks: payload,
             }    
         default:
             return state

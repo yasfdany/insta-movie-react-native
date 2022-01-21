@@ -16,13 +16,12 @@ const ItemStory = (props) => {
     const navigation = useNavigation()
 
     return (
-        <View style={{
+        <View style={[props.style, {
             borderColor: Colors.primary,
             borderWidth: 2,
-            marginRight: 6,
             borderRadius: wp(11),
             padding: 2,
-        }}>
+        }]}>
             <TouchableRipple
                 borderless
                 onPress={() => {
@@ -41,10 +40,10 @@ const ItemStory = (props) => {
 
 const styles = StyleSheet.create({
     storyImage: {
-        height: wp(11),
-        width: wp(11),
+        height: 48,
+        width: 48,
         resizeMode: 'cover',
-        borderRadius: wp(11),
+        borderRadius: 48,
     },
 })
 

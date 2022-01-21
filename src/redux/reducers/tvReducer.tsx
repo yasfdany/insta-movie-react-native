@@ -18,10 +18,23 @@ export const tvReducer = (state = initialState, {type, payload}) => {
                 maxPage: payload.response.data.total_pages,
                 loading: false,
             }
+        case ActionTypes.GET_LOCAL_TV:
+            return {
+                ...state, 
+                tvs: payload,
+                page: 1,
+                maxPage: -1,
+                loading: false,
+            }
         case ActionTypes.GET_STORY:
             return {
                 ...state, 
                 stories: payload.data.results,
+            }
+        case ActionTypes.GET_LOCAL_STORY:
+            return {
+                ...state, 
+                stories: payload,
             }
         case ActionTypes.SET_TV_LOADING:
             return {

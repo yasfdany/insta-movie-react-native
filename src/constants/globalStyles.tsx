@@ -18,6 +18,9 @@ export default StyleSheet.create({
     spaceBetween: {
         justifyContent: 'space-between'
     },
+    spaceEvenly: {
+        justifyContent: 'space-evenly'
+    },
     mainCenter: {
         justifyContent: 'center'
     },

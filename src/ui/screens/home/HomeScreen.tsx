@@ -8,7 +8,7 @@ import {
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen'
-import { getMovies } from "../../../redux/actions/movieActions"
+import { getMovies, getMovieBookmark } from "../../../redux/actions/movieActions"
 import { getTv, getStory } from '../../../redux/actions/tvActions'
 import { useDispatch } from "react-redux"
 
@@ -22,6 +22,7 @@ const HomeScreen = ({ navigation }) => {
   const dispatch = useDispatch()
 
   useEffect(() => {
+    dispatch(getMovieBookmark())
     dispatch(getStory())
     dispatch(getMovies(1, true))
     dispatch(getTv(1, "", true))
@@ -39,7 +40,7 @@ const HomeScreen = ({ navigation }) => {
           options={{
             headerShown : false,
             tabBarIcon: ({ color, size }) => (
-              <Icon name="theaters" color={color} size={wp(5.6)} />
+              <Icon name="theaters" color={color} size={24} />
             ),
           }} 
           name="Movie" 
@@ -49,7 +50,7 @@ const HomeScreen = ({ navigation }) => {
           options={{
             headerShown : false,
             tabBarIcon: ({ color, size }) => (
-              <Icon name="live-tv" color={color} size={wp(5.6)} />
+              <Icon name="live-tv" color={color} size={24} />
             ),
           }} 
           name="Tv" 

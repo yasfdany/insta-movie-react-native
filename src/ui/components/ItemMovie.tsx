@@ -12,12 +12,15 @@ import { TouchableRipple } from 'react-native-paper'
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import { useNavigation } from '@react-navigation/native'
+import { useDispatch } from "react-redux"
+
 import {apiConfig} from "../../data/services/apiClient"
+import { toggleMovieBookmark } from "../../redux/actions/movieActions"
 
 const ItemMovie = (props) => {
+    const dispatch = useDispatch()
     const navigation = useNavigation()
     const [love, setLove] = useState(false)
-    const [bookmark, setBookmark] = useState(false)
 
     return (
         <View style={GS.column}>
@@ -36,7 +39,8 @@ const ItemMovie = (props) => {
                     rippleColor="rgba(0, 0, 0, .32)">
                     <Icon 
                         name="more-vert"
-                        size={wp(6)} 
+                        color="gray"
+                        size={24} 
                     />
                 </TouchableOpacity>
             </View>
@@ -60,7 +64,7 @@ const ItemMovie = (props) => {
                     <Icon 
                         name={ love ? "favorite" : "favorite-border"} 
                         color={ love ? "red" : "gray" }
-                        size={wp(6)} />
+                        size={24} />
                 </TouchableOpacity>
                 <TouchableOpacity
                     onPress={() => {
@@ -68,7 +72,10 @@ const ItemMovie = (props) => {
                     }}
                     style={{marginHorizontal: 12}}
                     rippleColor="rgba(0, 0, 0, .32)">
-                    <Icon name="chat-bubble-outline" size={wp(6)} />
+                    <Icon 
+                        name="chat-bubble-outline" 
+                        color="gray"
+                        size={24} />
                 </TouchableOpacity>
                 <TouchableOpacity
                     onPress={() => {
@@ -76,16 +83,20 @@ const ItemMovie = (props) => {
                     }}
                     style={{flex:1}}
                     rippleColor="rgba(0, 0, 0, .32)">
-                    <Icon name="share" size={wp(6)} />
+                    <Icon 
+                        name="share" 
+                        color="gray"
+                        size={24} />
                 </TouchableOpacity>
                 <TouchableOpacity
                     onPress={() => {
-                        setBookmark(current => !current)
+                        dispatch(toggleMovieBookmark(props.movie))
                     }}
                     rippleColor="rgba(0, 0, 0, .32)">
                     <Icon 
-                        name={ bookmark ? "bookmark" : "bookmark-border"} 
-                        size={wp(6)} />
+                        name={ props.bookmarked ? "bookmark" : "bookmark-border"} 
+                        color="gray"
+                        size={24} />
                 </TouchableOpacity>
              </View>
              <Text style={[GS.black14, GS.moreLineHeight, {marginHorizontal: 14, marginBottom: 14}]}>
@@ -105,10 +116,10 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(0,0,0,0.08)',
     },
     profileImage: {
-        height: wp(9),
-        width: wp(9),
+        height: 48,
+        width: 48,
         resizeMode: 'cover',
-        borderRadius: wp(9),
+        borderRadius: 48,
         backgroundColor: 'rgba(0,0,0,0.08)',
     },
 })

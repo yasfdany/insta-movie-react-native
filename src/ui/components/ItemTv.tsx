@@ -8,6 +8,7 @@ import {
 import { TouchableRipple } from 'react-native-paper'
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen'
 import {apiConfig} from "../../data/services/apiClient"
+import DeviceInfo from 'react-native-device-info';
 
 const ItemTv = (props) => {
     return (
@@ -27,8 +28,8 @@ const ItemTv = (props) => {
 
 const styles = StyleSheet.create({
   tvImage: {
-      width: wp(100/3) - 1,
-      height: wp(100/3) - 1,
+      width: wp(100/ (DeviceInfo.isTablet() ? 4 : 3)) - 1,
+      height: wp(100/ (DeviceInfo.isTablet() ? 4 : 3)) - 1,
       margin: 1,
       backgroundColor: 'rgba(0,0,0,0.08)',
   },
